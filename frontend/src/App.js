@@ -5,6 +5,7 @@ import Login from './pages/Login'
 import Profile from './pages/Profile'
 import styles from './App.module.scss'
 import Header from './components/Header'
+import Footer from './components/Footer'
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/profile/:id" element={<Profile />} />
             </Routes>
+            <Footer />
         </div>
     )
 }

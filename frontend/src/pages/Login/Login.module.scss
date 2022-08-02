@@ -1,3 +1,10 @@
+section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
 form {
     width: 500px;
     display: flex;
@@ -5,8 +12,12 @@ form {
     justify-content: center;
     align-items: center;
     border-radius: 20px;
-    background-color: blue;
-    padding: 20px;
+
+    h1 {
+        margin-bottom: 40px;
+        color: var(--primary);
+        font-weight: 700;
+    }
 }
 
 .labelInputContainer {
@@ -16,6 +27,7 @@ form {
     margin-bottom: 20px;
 
     label {
-        margin-bottom: 10px;
+        margin-bottom: 5px;
+        font-size: 16px;
     }
 }

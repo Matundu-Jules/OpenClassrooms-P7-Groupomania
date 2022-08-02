@@ -1,8 +1,9 @@
-// section {
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-// }
+section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
 
 form {
     width: 500px;
@@ -27,5 +28,6 @@ form {
 
     label {
         margin-bottom: 5px;
+        font-size: 16px;
     }
 }

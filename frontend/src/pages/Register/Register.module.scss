@@ -1,0 +1,25 @@
+form {
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+
+    h1 {
+        margin-bottom: 40px;
+        color: var(--primary);
+        font-weight: 700;
+    }
+}
+
+.labelInputContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+
+    label {
+        margin-bottom: 5px;
+    }
+}

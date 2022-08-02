@@ -1,11 +1,12 @@
 import { useContext, useState } from 'react'
+import { Navigate } from 'react-router-dom'
 import * as yup from 'yup'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { ApiContext } from '../../context/ApiContext'
-import styles from './Register.module.scss'
+import styles from './SignUp.module.scss'
 
-function Register() {
+function SignUp() {
     const [success, setSuccess] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const BASE_URL = useContext(ApiContext)
@@ -98,7 +99,7 @@ function Register() {
     return (
         <section>
             {success ? (
-                <h1>Success</h1>
+                <Navigate to="/" replace={true} />
             ) : (
                 <form className="card" onSubmit={handleSubmit(submit)}>
                     <h1>Inscription</h1>
@@ -178,4 +179,4 @@ function Register() {
     )
 }
 
-export default Register
+export default SignUp

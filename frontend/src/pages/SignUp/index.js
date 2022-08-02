@@ -90,7 +90,7 @@ function SignUp() {
                 setSuccess(true)
             }
         } catch (e) {
-            console.log(e)
+            console.error(e)
         } finally {
             setIsLoading(false)
         }

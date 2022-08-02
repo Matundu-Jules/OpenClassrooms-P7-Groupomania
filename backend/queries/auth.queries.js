@@ -7,6 +7,3 @@ exports.emailExistQuery = email => {
 exports.pseudoExistQuery = pseudo => {
     return User.findOne({pseudo}).exec();
 };
-exports.emailAndPseudoExistQuery = (email, pseudo) => {
-    return User.find({email, pseudo}).exec();
-}

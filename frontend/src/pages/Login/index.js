@@ -36,9 +36,43 @@ function Login() {
     })
 
     async function submit(values) {
+        console.log(values)
+        clearErrors()
         try {
+            setIsLoading(true)
+
+            const response = await fetch(`${BASE_URL}/auth/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(values),
+            })
+            console.log(response)
+            const data = await response.json()
+            console.log(data)
+
+            if (!response.ok) {
+                if (data.wrongLogin) {
+                    setError('emailExist', {
+                        type: 'emailExist',
+                        message: data.errorEmail,
+                    })
+                    setError('wrongPassword', {
+                        type: 'wrongPassword',
+                        message: data.errorPassword,
+                    })
+                } else {
+                    throw new Error('Une erreur est survenue.')
+                }
+            } else {
+                reset(defaultValues)
+                setSuccess(true)
+            }
         } catch (e) {
+            console.error(e)
         } finally {
+            setIsLoading(false)
         }
     }
 

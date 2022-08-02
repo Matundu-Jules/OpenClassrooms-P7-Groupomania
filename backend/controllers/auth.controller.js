@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const {createJwtToken} = require("../config/jwt.config");
 const User = require("../models/user.model");
-const {emailExistQuery, pseudoExistQuery, emailAndPseudoExistQuery} = require("../queries/auth.queries");
+const {emailExistQuery, pseudoExistQuery} = require("../queries/auth.queries");
 
 
 // Création nouvel utilisateur :
@@ -10,7 +10,6 @@ exports.userSignup = async (req, res, next) => {
 
         const pseudoExist = await pseudoExistQuery(req.body.pseudo);
         const emailExist = await emailExistQuery(req.body.email);
-        const emailAndPseudoExist = await emailAndPseudoExistQuery(req.body.email, req.body.pseudo);
 
         if(pseudoExist && emailExist) {
             res.status(400).json({userCreated: false, errorPseudo: "Ce pseudo est déja pris, veuillez en choisir un nouveau.", errorEmail: "Cet email est déja associé à un compte !" }); 
@@ -45,31 +44,33 @@ exports.userSignup = async (req, res, next) => {
 // Connexion utilisateur :
 exports.userLogin = async (req, res, next) => {
     try {
-        const body = req.body;
 
         // Récupération de l'user via l'email si existant :
-        const user = await emailExistQuery(body.email);
+        const user = await emailExistQuery(req.body.email);
 
         // Si le user n'existe pas alors on retourne une erreur :
         if (!user) {
-            res.status(404);
-            throw new Error("Utilisateur non trouvé !");
+            res.status(404).json({wrongLogin: true, errorEmail: "Cet email est associé à aucun compte, veuillez vous inscrire."});
         }
+        else {
+            // Si l'user existe on vérifie le mot de passe de la requete comparé à celui de la bdd :
+            const passwordIsValid = await bcrypt.compare(req.body.password, user.password);
 
-        // Si l'user existe on vérifie le mot de passe de la requete comparé à celui de la bdd :
-        const passwordIsValid = await bcrypt.compare(body.password, user.password);
-
-        // Si les password ne sont pas les mêmes alors on retourne une erreur :
-        if (!passwordIsValid) {
-            res.status(403);
-            throw new Error("Mot de passe incorrect !");
-        }
-
-        // Sinon si tout est ok, on renvoie un statut 200 et json contenant l'userId et un token web JSON signé.
-        res.status(200).json({
-            userId: user._id,
-            token: createJwtToken(user),
-        });
+            // Si les password ne sont pas les mêmes alors on retourne une erreur :
+            if (!passwordIsValid) {
+                res.status(401).json({wrongLogin: true, errorPassword: "Mot de passe incorrect"});
+            }
+            else if(user && passwordIsValid) {
+                // Sinon si tout est ok, on renvoie un statut 200 et json contenant l'userId et un token web JSON signé.
+                res.status(200).json({
+                    userId: user._id,
+                    token: createJwtToken(user),
+                });
+            }
+            else {
+                throw new Error("Une erreur est survenue.")
+            }
+        }     
     } catch (err) {
         next(err);
     }

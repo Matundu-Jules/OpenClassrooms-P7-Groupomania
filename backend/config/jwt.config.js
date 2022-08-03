@@ -4,13 +4,15 @@ const secret = process.env.ACCESS_TOKEN_SECRET;
 
 // Création du token JWT :
 exports.createJwtToken = user => {
-    return jwt.sign(
+    const jwtToken = jwt.sign(
         {
-            userId: user._id.toString(),
+            sub: user._id.toString(),
         },
         secret,
         {expiresIn: "24h"}
     );
+
+    return jwtToken;
 };
 
 // Vérification du token :

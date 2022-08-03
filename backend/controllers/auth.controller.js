@@ -22,7 +22,8 @@ exports.userSignup = async (req, res, next) => {
         }
 
         // Hashage du mot de passe :
-        const hash = await bcrypt.hash(req.body.password, 15);
+        const salt = await bcrypt.genSalt(15)
+        const hash = await bcrypt.hash(req.body.password, salt);
 
         // Création de l'user :
         const user = new User({
@@ -64,6 +65,7 @@ exports.userLogin = async (req, res, next) => {
                 // Sinon si tout est ok, on renvoie un statut 200 et json contenant l'userId et un token web JSON signé.
                 res.status(200).json({
                     userId: user._id,
+                    pseudo: user.pseudo,
                     token: createJwtToken(user),
                 });
             }

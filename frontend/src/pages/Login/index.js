@@ -5,9 +5,14 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { ApiContext } from '../../context/ApiContext'
 import styles from './Login.module.scss'
+import { useDispatch, useSelector } from 'react-redux'
 
 function Login() {
-    const [success, setSuccess] = useState(false)
+    const user = useSelector((state) => state.user)
+    const dispatch = useDispatch()
+    // dispatch({ type: 'user/checkIfAlreadyConnect' })
+
+    console.log(user)
     const [isLoading, setIsLoading] = useState(false)
     const BASE_URL = useContext(ApiContext)
     const defaultValues = {
@@ -36,6 +41,8 @@ function Login() {
     })
 
     async function submit(values) {
+        // REDUX
+
         console.log(values)
         clearErrors()
         try {
@@ -67,7 +74,15 @@ function Login() {
                 }
             } else {
                 reset(defaultValues)
-                setSuccess(true)
+                dispatch({
+                    type: 'user/login',
+                    payload: {
+                        id: data.userId,
+                        token: data.token,
+                        pseudo: data.pseudo,
+                        isConnected: true,
+                    },
+                })
             }
         } catch (e) {
             console.error(e)
@@ -78,7 +93,7 @@ function Login() {
 
     return (
         <section>
-            {success ? (
+            {user.isConnected ? (
                 <Navigate to="/" replace={true} />
             ) : (
                 <form className="card" onSubmit={handleSubmit(submit)}>

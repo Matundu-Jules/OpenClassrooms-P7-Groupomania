@@ -1,36 +1,46 @@
-const dotenv = require("dotenv").config();
-const jwt = require("jsonwebtoken");
-const secret = process.env.ACCESS_TOKEN_SECRET;
+const dotenv = require('dotenv').config()
+const jwt = require('jsonwebtoken')
+const secret = process.env.ACCESS_TOKEN_SECRET
 
 // Création du token JWT :
-exports.createJwtToken = user => {
+exports.createJwtToken = (user) => {
     const jwtToken = jwt.sign(
         {
             sub: user._id.toString(),
         },
         secret,
-        {expiresIn: "24h"}
-    );
+        { expiresIn: '1h' }
+    )
 
-    return jwtToken;
-};
+    return jwtToken
+}
 
 // Vérification du token :
 exports.verifyJwtToken = (req, res, next) => {
     try {
         // Récupération du token :
-        const token = req.headers.authorization.split(" ")[1];
+        const token = req.headers.authorization.split(' ')[1]
+
+        try {
+            jwt.verify(token, secret)
+        } catch (e) {
+            res.status(401).json({
+                tokenExpired: true,
+                message: 'Votre session à expirer, Veuillez vous reconnecter.',
+            })
+        }
 
         // Vérification du token :
-        const decodedToken = jwt.verify(token, secret);
-        const userId = decodedToken.userId;
-        req.user = {userId};
+        const decodedToken = jwt.verify(token, secret)
+
+        const userId = decodedToken.userId
+        req.user = { userId }
 
         if (req.body.userId && req.user.userId !== userId) {
-            throw new Error("Token d'authentification invalide !");
+            throw new Error("Token d'authentification invalide !")
         }
-        next();
+        next()
     } catch (err) {
-        next(err);
+        next(err)
     }
-};
+}

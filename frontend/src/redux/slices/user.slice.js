@@ -8,6 +8,8 @@ export const userSlice = createSlice({
         pseudo: null,
         createdAt: null,
         isConnected: false,
+        tokenExpired: null,
+        errorToken: '',
     },
     reducers: {
         login: (state, action) => {
@@ -25,13 +27,17 @@ export const userSlice = createSlice({
             //   console.log(action.payload)
             localStorage.setItem('user', JSON.stringify(action.payload))
         },
-        logout: (state) => {
+        logout: (state, action) => {
             state.id = null
             state.token = null
             state.pseudo = null
             state.createdAt = null
             state.isConnected = false
             localStorage.clear()
+
+            if (action.payload.errorToken) {
+                state.errorToken = action.payload.errorToken
+            }
         },
         checkIfAlreadyConnect: (state) => {
             if (localStorage.getItem('user')) {

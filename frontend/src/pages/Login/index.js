@@ -93,6 +93,9 @@ function Login() {
                 <Navigate to="/" replace={true} />
             ) : (
                 <form className="card" onSubmit={handleSubmit(submit)}>
+                    {user.errorToken && (
+                        <p className="form-error">{user.errorToken}</p>
+                    )}
                     <h1>Connexion</h1>
                     <div className={`${styles.labelInputContainer}`}>
                         <label htmlFor="email">Email</label>

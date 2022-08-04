@@ -22,7 +22,8 @@ function SignUp() {
         pseudo: yup
             .string()
             .required('Un pseudo est requis.')
-            .min(3, 'Le pseudo est trop court.'),
+            .min(3, 'Le pseudo est trop court.')
+            .max(15, 'Le pseudo est trop grand.'),
         email: yup
             .string()
             .email('Veuillez entrer une adresse email valide.')
@@ -40,7 +41,6 @@ function SignUp() {
             ),
     })
 
-    //
     const {
         formState: { errors, isSubmitting },
         register,
@@ -56,7 +56,6 @@ function SignUp() {
     // POST : Création nouvel utilisateur
     async function submit(values) {
         const { confirmPassword, ...newUser } = values
-        // console.log(values)
 
         clearErrors()
 

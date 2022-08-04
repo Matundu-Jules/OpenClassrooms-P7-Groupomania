@@ -8,13 +8,11 @@ import styles from './Login.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 
 function Login() {
-    const user = useSelector((state) => state.user)
-    const dispatch = useDispatch()
-    // dispatch({ type: 'user/checkIfAlreadyConnect' })
-
-    console.log(user)
     const [isLoading, setIsLoading] = useState(false)
+    const user = useSelector((state) => state.user)
     const BASE_URL = useContext(ApiContext)
+    const dispatch = useDispatch()
+
     const defaultValues = {
         email: '',
         password: '',
@@ -41,7 +39,6 @@ function Login() {
     })
 
     async function submit(values) {
-        console.log(values)
         clearErrors()
         try {
             setIsLoading(true)

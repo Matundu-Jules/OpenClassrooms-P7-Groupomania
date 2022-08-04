@@ -3,16 +3,14 @@ const mongoose = require("mongoose");
 // Création du Schema Sauce :
 const postSchema = mongoose.Schema({
     userId: String,
-    name: String,
-    manufacturer: String,
-    description: String,
-    mainPepper: String,
+    title: String,
     imageUrl: String,
-    heat: Number,
+    text: String,
     likes: Number,
     dislikes: Number,
     usersLiked: [String],
     usersDisliked: [String],
+    createdAt: Date,
 });
 
 module.exports = mongoose.model("Post", postSchema);

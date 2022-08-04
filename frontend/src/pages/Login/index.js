@@ -41,8 +41,6 @@ function Login() {
     })
 
     async function submit(values) {
-        // REDUX
-
         console.log(values)
         clearErrors()
         try {
@@ -80,6 +78,7 @@ function Login() {
                         id: data.userId,
                         token: data.token,
                         pseudo: data.pseudo,
+                        createdAt: data.createdAt,
                         isConnected: true,
                     },
                 })

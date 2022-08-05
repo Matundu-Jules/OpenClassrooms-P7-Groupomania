@@ -50,13 +50,13 @@ function Home() {
     return (
         <>
             {user.isConnected ? (
-                <div>
+                <div className={styles.homepage}>
                     <h1>{`Bienvenue ${user.pseudo}`}</h1>
                     <p>Vous etes connecter.</p>
                     {posts && posts.map((p) => <Post post={p} key={p._id} />)}
                 </div>
             ) : (
-                <div>
+                <div className={styles.homepage}>
                     <h1>Bienvenue sur Groupomania</h1>
                     <p>
                         Vous ne pouvez pas accéder à cette page, merci de vous

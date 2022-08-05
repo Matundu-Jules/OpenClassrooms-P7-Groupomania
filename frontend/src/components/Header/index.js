@@ -2,13 +2,14 @@ import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import groupomaniaLogo from '../../assets/images/logo-modified.png'
 import styles from './Header.module.scss'
+import { logout } from '../../redux/slices/user.slice'
 
 function Header() {
     const user = useSelector((state) => state.user)
     const dispatch = useDispatch()
 
     function handleClickLogout() {
-        dispatch({ type: 'user/logout' })
+        dispatch(logout())
     }
 
     return (

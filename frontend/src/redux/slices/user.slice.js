@@ -9,46 +9,36 @@ export const userSlice = createSlice({
         createdAt: null,
         isConnected: false,
         tokenExpired: null,
-        errorToken: '',
+        errorToken: null,
     },
     reducers: {
         login: (state, action) => {
-            // action {type:'user/login' payload:{id, token, pseudo, isConnected}
-            // isConnected : function qui verify si un token est dans le localstorage} et qui retourne true ou false.
-
             const { id, token, pseudo, isConnected, createdAt } = action.payload
-            console.log(id, token, pseudo, isConnected)
 
             state.id = id
             state.token = token
             state.pseudo = pseudo
             state.createdAt = createdAt
             state.isConnected = isConnected
-            //   console.log(action.payload)
             localStorage.setItem('user', JSON.stringify(action.payload))
         },
-        logout: (state, action) => {
+        logout: (state) => {
             state.id = null
             state.token = null
             state.pseudo = null
             state.createdAt = null
             state.isConnected = false
+            state.errorToken = null
             localStorage.clear()
-
-            if (action.payload.errorToken) {
-                state.errorToken = action.payload.errorToken
-            }
         },
         checkIfAlreadyConnect: (state) => {
             if (localStorage.getItem('user')) {
                 const user = JSON.parse(localStorage.getItem('user'))
-                console.log(user)
                 state.id = user.id
                 state.token = user.token
                 state.pseudo = user.pseudo
                 state.createdAt = user.createdAt
                 state.isConnected = user.isConnected
-                console.log()
             } else {
                 state.id = null
                 state.token = null
@@ -57,7 +47,17 @@ export const userSlice = createSlice({
                 state.isConnected = false
             }
         },
+        sessionExpired: (state, action) => {
+            state.id = null
+            state.token = null
+            state.pseudo = null
+            state.createdAt = null
+            state.isConnected = false
+            state.errorToken = action.payload.errorToken
+            localStorage.clear()
+        },
     },
 })
 
-export const { login, logout, checkIfAlreadyConnect } = userSlice.actions
+export const { login, logout, checkIfAlreadyConnect, sessionExpired } =
+    userSlice.actions

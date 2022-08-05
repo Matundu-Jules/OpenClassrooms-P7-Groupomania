@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import styles from './CreatePost.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { ApiContext } from '../../context/ApiContext'
-import { logout } from '../../redux/slices/user.slice'
+import { sessionExpired } from '../../redux/slices/user.slice'
 import { Navigate } from 'react-router-dom'
 
 function CreatePost() {
@@ -24,7 +24,7 @@ function CreatePost() {
             .string()
             .required('Un titre est requis.')
             .min(5, 'Votre titre est trop court.')
-            .max(15, 'Votre titre est trop long.'),
+            .max(25, 'Votre titre est trop long.'),
         description: yup
             .string()
             .required('Une description est requise.')
@@ -95,7 +95,7 @@ function CreatePost() {
 
             if (!response.ok) {
                 if (data.tokenExpired) {
-                    dispatch(logout({ errorToken: data.message }))
+                    dispatch(sessionExpired({ errorToken: data.message }))
                 } else {
                     throw new Error('Une erreur est survenue.')
                 }

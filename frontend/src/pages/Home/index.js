@@ -1,24 +1,59 @@
+import { useContext, useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { ApiContext } from '../../context/ApiContext'
+import { getAllPosts } from '../../redux/slices/posts.slice'
+import { sessionExpired } from '../../redux/slices/user.slice'
 import Login from '../Login'
+import Post from './components/Post'
 import styles from './Home.module.scss'
-
-/* 
-    Si l'utilisateur est connecter, afficher tout les posts. => state : isConnected(true)
-    Si il n'est pas connecter, afficher le formulaire d'inscription ou de connexion. state => isConnected(false) 
-*/
 
 function Home() {
     const user = useSelector((state) => state.user)
-    // const dispatch = useDispatch()
-    // dispatch({ type: 'user/checkIfAlreadyConnect' })
+    let posts = useSelector((state) => state.posts)
 
-    // console.log()
+    const BASE_URL = useContext(ApiContext)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        if (!user.token) {
+            return
+        } else {
+            async function getAllPost() {
+                try {
+                    const response = await fetch(`${BASE_URL}/posts`, {
+                        headers: {
+                            Authorization: `Bearer ${user.token}`,
+                        },
+                    })
+                    const data = await response.json()
+
+                    if (!response.ok) {
+                        if (data.tokenExpired) {
+                            dispatch(
+                                sessionExpired({ errorToken: data.message })
+                            )
+                        } else {
+                            throw new Error('Une erreur est survenue.')
+                        }
+                    } else {
+                        dispatch(getAllPosts(data))
+                    }
+                } catch (e) {
+                    console.error(e)
+                } finally {
+                }
+            }
+            getAllPost()
+        }
+    }, [BASE_URL, user, dispatch])
+
     return (
         <>
             {user.isConnected ? (
                 <div>
                     <h1>{`Bienvenue ${user.pseudo}`}</h1>
                     <p>Vous etes connecter.</p>
+                    {posts && posts.map((p) => <Post post={p} key={p._id} />)}
                 </div>
             ) : (
                 <div>
@@ -27,14 +62,13 @@ function Home() {
                         Vous ne pouvez pas accéder à cette page, merci de vous
                         connecter.
                     </p>
+                    {/* <Link to="/login">Connexion</Link>
+                    <Link to="/singup">Connexion</Link> */}
+
                     <Login />
                 </div>
             )}
         </>
-
-        // <div>
-        //     <h1>Groupomania</h1>
-        // </div>
     )
 }
 

@@ -33,7 +33,7 @@ exports.verifyJwtToken = (req, res, next) => {
         // Vérification du token :
         const decodedToken = jwt.verify(token, secret)
 
-        const userId = decodedToken.userId
+        const userId = decodedToken.sub
         req.user = { userId }
 
         if (req.body.userId && req.user.userId !== userId) {

@@ -107,7 +107,7 @@ function CreatePost() {
                 reset(defaultValues)
             }
         } catch (e) {
-            console.log(e)
+            console.error(e)
         } finally {
             setIsLoading(false)
         }

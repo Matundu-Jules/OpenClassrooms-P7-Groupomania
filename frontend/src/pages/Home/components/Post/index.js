@@ -10,7 +10,6 @@ function Post({ post }) {
 
     // Gestion de la date et de l'heure.
     const date = moment(post.createdAt).locale('fr')
-
     const dateString = date.format('DD/MM/YYYY')
     const hourString = date.format('HH')
     const minString = date.format('mm')

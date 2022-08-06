@@ -62,9 +62,6 @@ function Home() {
                         Vous ne pouvez pas accéder à cette page, merci de vous
                         connecter.
                     </p>
-                    {/* <Link to="/login">Connexion</Link>
-                    <Link to="/singup">Connexion</Link> */}
-
                     <Login />
                 </div>
             )}

@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 // Création du Schema Sauce :
 const postSchema = mongoose.Schema({
     userId: String,
+    pseudo: String,
     title: String,
     description: String,
     imageUrl: String,

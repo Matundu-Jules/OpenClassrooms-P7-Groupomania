@@ -1,29 +1,25 @@
 .post {
-    width: 70%;
+    width: 60%;
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
 
-    .pseudo {
-        margin-bottom: 10px;
-    }
-    p {
-        margin-top: 0;
-        margin-bottom: 5px;
-    }
+.infosCardContainer {
+    width: 90%;
+    padding: 10px 0;
 }
 
 .titleContainer {
-    width: 90%;
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     h2 {
-        margin-bottom: 15px;
+        margin-bottom: 10px;
         color: var(--primary);
     }
     .menu {
@@ -32,20 +28,59 @@
         top: 0;
         margin-top: 3px;
         font-size: 1.5em;
-        color: var(--primary);
+
         &:hover {
             cursor: pointer;
+            color: var(--primary);
             transition: transform 0.2s;
             transform: scale(1.2);
         }
     }
 }
 
-.reactionContainer {
-    width: 80%;
-    height: 30px;
+.date {
+    text-align: end;
+    margin-bottom: 10px;
+    font-size: 12px;
+    margin: 5px 0;
+}
+
+.imageContainer {
+    height: auto;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 0px;
     display: flex;
-    justify-content: end;
+    align-items: center;
+    justify-content: center;
+    img {
+        object-fit: cover;
+        transition: 1s transform;
+        border-radius: 20px;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+}
+
+.pseudo {
+    text-align: left;
+    font-weight: 700;
+    font-size: 12px;
+    margin: 2px 0;
+}
+
+.description {
+    // width: 90%;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.reactionContainer {
+    height: 40px;
+    display: flex;
+    justify-content: flex-end;
     align-items: center;
 
     i {
@@ -67,7 +102,6 @@
     }
     .dislikeContainer {
         i {
-            //   line-height: 10px;
             position: relative;
             top: 7px;
             transform: rotate(180deg);
@@ -75,23 +109,6 @@
             &:hover {
                 transform: scale(1.2) rotate(180deg);
             }
-        }
-    }
-}
-
-.imageContainer {
-    width: 90%;
-    height: auto;
-    border-radius: 20px;
-    overflow: hidden;
-    margin-bottom: 15px;
-    img {
-        object-fit: cover;
-        transition: 1s transform;
-        width: 100%;
-
-        &:hover {
-            transform: scale(1.1);
         }
     }
 }

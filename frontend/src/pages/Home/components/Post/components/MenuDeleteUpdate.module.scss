@@ -1,0 +1,31 @@
+.modifyDeleteLinkContainer {
+    //     height: 30px;
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    //     background-color: white;
+    border-radius: 20px;
+    //     border: 2px solid var(--primary);
+    padding: 5px 0;
+}
+
+.modifyLink {
+    color: black;
+    margin-right: 10px;
+    line-height: 20px;
+
+    &:hover {
+        color: var(--primary);
+    }
+}
+
+.deleteLink {
+    color: black;
+    line-height: 20px;
+
+    &:hover {
+        color: var(--primary);
+    }
+}

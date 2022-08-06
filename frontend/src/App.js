@@ -8,6 +8,7 @@ import styles from './App.module.scss'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import CreatePost from './pages/CreatePost'
+import UpdatePost from './pages/Home/components/Post/components/UpdatePost'
 
 function App() {
     const dispatch = useDispatch()
@@ -21,6 +22,7 @@ function App() {
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/post" element={<CreatePost />}></Route>
+                <Route path="/post/:id" element={<UpdatePost />}></Route>
                 <Route path="/profile/:id" element={<Profile />} />
             </Routes>
             <Footer />

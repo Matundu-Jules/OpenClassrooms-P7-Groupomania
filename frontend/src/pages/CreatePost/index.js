@@ -29,7 +29,10 @@ function CreatePost() {
             .string()
             .required('Une description est requise.')
             .min(3, 'Votre description est trop courte.')
-            .max(40, 'Votre description est trop longue.'),
+            .max(
+                140,
+                'Votre description est trop longue. 140 caractères maximum.'
+            ),
         img: yup
             .mixed()
             .test(
@@ -78,6 +81,7 @@ function CreatePost() {
             const { img, ...post } = values
             const image = img[0]
             post.userId = user.id
+            post.pseudo = user.pseudo
 
             let formData = new FormData()
             formData.append('image', image)

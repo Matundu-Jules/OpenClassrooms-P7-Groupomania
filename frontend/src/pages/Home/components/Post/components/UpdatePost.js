@@ -18,7 +18,7 @@ function UpdatePost() {
 
     // Récupérer la props post :
     const location = useLocation()
-    const { post } = location.state
+    const { post, previousUrl } = location.state
 
     // Définir les valeur par défaut des champs du formulaire :
     const defaultValues = {
@@ -219,7 +219,7 @@ function UpdatePost() {
                             {isSuccess ? (
                                 <>
                                     <p>{isSuccess}</p>
-                                    <Navigate to="/" replace={true} />
+                                    <Navigate to={previousUrl} replace={true} />
                                 </>
                             ) : (
                                 <button

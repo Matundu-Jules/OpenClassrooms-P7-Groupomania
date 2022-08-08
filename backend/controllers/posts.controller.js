@@ -1,7 +1,8 @@
 const Post = require('../models/post.model')
 const {
     getPostQuery,
-    getAllpostsQuery,
+    getAllPostsQuery,
+    getUserPostsQuery,
     modifyPostQuery,
     deletePostQuery,
 } = require('../queries/posts.queries')
@@ -33,17 +34,17 @@ exports.createPost = async (req, res, next) => {
     }
 }
 
-// Récupération de toutes les posts :
+// Récupération de tout les posts :
 exports.getAllposts = async (req, res, next) => {
     try {
-        const posts = await getAllpostsQuery()
+        const posts = await getAllPostsQuery()
         res.status(200).json(posts)
     } catch (err) {
         next(err)
     }
 }
 
-// Récupération d'une post :
+// Récupération d'un post :
 exports.getPost = async (req, res, next) => {
     try {
         // Récupération id passé dans l'url :
@@ -52,6 +53,26 @@ exports.getPost = async (req, res, next) => {
         // Récupération de la post via son Id :
         const post = await getPostQuery(postId)
         res.status(200).json(post)
+    } catch (err) {
+        next(err)
+    }
+}
+
+// Récupération de tout les posts d'un user :
+exports.getUserPosts = async (req, res, next) => {
+    try {
+        const userId = req.params.id
+
+        if (req.user.userId !== userId) {
+            res.status(403).json({
+                errorMsg: "Vous n'êtes pas autoriser à éffectuer cette action.",
+            })
+        }
+
+        // Récupération des posts de l'utilisateur :
+        const posts = await getUserPostsQuery(userId)
+
+        res.status(200).json(posts)
     } catch (err) {
         next(err)
     }

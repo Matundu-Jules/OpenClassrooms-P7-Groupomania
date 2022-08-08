@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { ApiContext } from '../../../../../context/ApiContext'
 import { deletePost } from '../../../../../redux/slices/posts.slice'
 import { sessionExpired } from '../../../../../redux/slices/user.slice'
@@ -11,6 +11,8 @@ function MenuDeleteUpdate({ post }) {
     const user = useSelector((state) => state.user)
     const dispatch = useDispatch()
     const postId = post._id
+
+    const currentUrl = useLocation().pathname
 
     // Suppression d'un post :
     async function handleClickDelete() {
@@ -42,12 +44,12 @@ function MenuDeleteUpdate({ post }) {
             <Link
                 to={`/post/modify/${postId}`}
                 className={styles.modifyLink}
-                state={{ post }}
+                state={{ post, previousUrl: currentUrl }}
             >
                 Modifier
             </Link>
             <Link
-                to="/"
+                to={currentUrl}
                 className={styles.deleteLink}
                 onClick={handleClickDelete}
             >

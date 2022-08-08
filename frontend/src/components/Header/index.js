@@ -21,7 +21,7 @@ function Header() {
                 <nav>
                     <Link to="/">Accueil</Link>
                     <Link to="/post">Créer un Post</Link>
-                    <Link to={`/profile/${user.id}`}>Mon profil</Link>
+                    <Link to="/myposts">Mes Posts</Link>
                     <Link to="/" onClick={handleClickLogout}>
                         Déconnexion
                     </Link>
@@ -33,9 +33,6 @@ function Header() {
                     <Link to="/signup">S'inscrire</Link>
                 </nav>
             )}
-
-            {/* Si isConnected=true alors afficher btn Deconnexion et Profil sinon Connexion et Inscription */}
-            {/* <Link to={`/profile/${_id}`}>Mon profil</Link> */}
         </header>
     )
 }

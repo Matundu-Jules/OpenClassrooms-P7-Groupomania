@@ -1,12 +1,12 @@
 import { useContext, useState } from 'react'
-import * as yup from 'yup'
+import { useDispatch, useSelector } from 'react-redux'
+import { Navigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import styles from './CreatePost.module.scss'
-import { useDispatch, useSelector } from 'react-redux'
+import * as yup from 'yup'
 import { ApiContext } from '../../context/ApiContext'
 import { sessionExpired } from '../../redux/slices/user.slice'
-import { Navigate } from 'react-router-dom'
+import styles from './CreatePost.module.scss'
 
 function CreatePost() {
     const [isLoading, setIsLoading] = useState(false)

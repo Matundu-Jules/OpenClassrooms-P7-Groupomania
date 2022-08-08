@@ -6,10 +6,11 @@ import { deletePost } from '../../../../../redux/slices/posts.slice'
 import { sessionExpired } from '../../../../../redux/slices/user.slice'
 import styles from './MenuDeleteUpdate.module.scss'
 
-function MenuDeleteUpdate({ postId }) {
+function MenuDeleteUpdate({ post }) {
     const BASE_URL = useContext(ApiContext)
     const user = useSelector((state) => state.user)
     const dispatch = useDispatch()
+    const postId = post._id
 
     // Suppression d'un post :
     async function handleClickDelete() {
@@ -38,7 +39,11 @@ function MenuDeleteUpdate({ postId }) {
 
     return (
         <nav className={styles.modifyDeleteLinkContainer}>
-            <Link to={`/post/${postId}`} className={styles.modifyLink}>
+            <Link
+                to={`/post/modify/${postId}`}
+                className={styles.modifyLink}
+                state={{ post }}
+            >
                 Modifier
             </Link>
             <Link

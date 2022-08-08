@@ -22,7 +22,7 @@ function App() {
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/post" element={<CreatePost />}></Route>
-                <Route path="/post/:id" element={<UpdatePost />}></Route>
+                <Route path="/post/modify/:id" element={<UpdatePost />}></Route>
                 <Route path="/profile/:id" element={<Profile />} />
             </Routes>
             <Footer />

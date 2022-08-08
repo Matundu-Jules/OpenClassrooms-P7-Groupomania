@@ -1,11 +1,11 @@
 const Post = require('../models/post.model')
 
-exports.getAllPostsQuery = () => {
-    return Post.find({}).exec()
-}
-
 exports.getPostQuery = (postId) => {
     return Post.findOne({ _id: postId }).exec()
+}
+
+exports.getAllPostsQuery = () => {
+    return Post.find({}).exec()
 }
 
 exports.getUserPostsQuery = (userId) => {

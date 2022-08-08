@@ -9,12 +9,28 @@ const {
 const path = require('path')
 const fs = require('fs')
 
+//
+// Récupération d'un post :
+// exports.getPost = async (req, res, next) => {
+//     try {
+//         // Récupération id passé dans l'url :
+//         const postId = req.params.id
+
+//         // Récupération de la post via son Id :
+//         const post = await getPostQuery(postId)
+//         res.status(200).json(post)
+//     } catch (err) {
+//         next(err)
+//     }
+// }
+//
+
 // Création de post :
 exports.createPost = async (req, res, next) => {
     try {
         const postObject = JSON.parse(req.body.post)
 
-        // Création de la post à partir des données formulaire :
+        // Création d'un' post à partir des données formulaire :
         const post = new Post({
             ...postObject,
             imageUrl: `${req.protocol}://${req.get('host')}/uploads/images/${
@@ -44,20 +60,6 @@ exports.getAllposts = async (req, res, next) => {
     }
 }
 
-// Récupération d'un post :
-exports.getPost = async (req, res, next) => {
-    try {
-        // Récupération id passé dans l'url :
-        const postId = req.params.id
-
-        // Récupération de la post via son Id :
-        const post = await getPostQuery(postId)
-        res.status(200).json(post)
-    } catch (err) {
-        next(err)
-    }
-}
-
 // Récupération de tout les posts d'un user :
 exports.getUserPosts = async (req, res, next) => {
     try {
@@ -78,7 +80,7 @@ exports.getUserPosts = async (req, res, next) => {
     }
 }
 
-// Modifier une post :
+// Modifier un post :
 exports.modifyPost = async (req, res, next) => {
     try {
         const postId = req.params.id
@@ -100,10 +102,10 @@ exports.modifyPost = async (req, res, next) => {
                 )}/uploads/images/${req.file.filename}`,
             }
 
-            // Récupérer l'url de l'ancienne image de la post :
+            // Récupérer l'url de l'ancienne image du post :
             const imgUrl = post.imageUrl
 
-            // Création u path pour supprimer l'ancienne image :
+            // Création d'un path pour supprimer l'ancienne image :
             const path = './uploads/images/' + imgUrl.split('/images/')[1]
 
             // Suppression de l'ancienne image :

@@ -94,6 +94,13 @@
         }
     }
 
+    .isLiked {
+        color: var(--primary);
+    }
+    .isDisliked {
+        color: var(--primary);
+    }
+
     .likeContainer {
         margin-right: 10px;
         i {

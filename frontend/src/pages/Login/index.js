@@ -6,6 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { ApiContext } from '../../context/ApiContext'
 import styles from './Login.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
+import Loader from '../../components/Loader'
 
 function Login() {
     const [isLoading, setIsLoading] = useState(false)
@@ -131,7 +132,7 @@ function Login() {
                         )}
                     </div>
                     {isLoading ? (
-                        <p>Chargement...</p>
+                        <Loader />
                     ) : (
                         <button
                             className="btn btn-reverse-primary"

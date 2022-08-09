@@ -7,6 +7,7 @@ import * as yup from 'yup'
 import { ApiContext } from '../../context/ApiContext'
 import { sessionExpired } from '../../redux/slices/user.slice'
 import styles from './CreatePost.module.scss'
+import Loader from '../../components/Loader'
 
 function CreatePost() {
     const [isLoading, setIsLoading] = useState(false)
@@ -155,7 +156,7 @@ function CreatePost() {
                         )}
                     </div>
                     {isLoading ? (
-                        <p>Chargement...</p>
+                        <Loader />
                     ) : (
                         <button
                             className="btn btn-reverse-primary"

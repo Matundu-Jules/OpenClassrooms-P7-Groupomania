@@ -1,12 +1,14 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useLocation } from 'react-router-dom'
+import Loader from '../../../../../components/Loader'
 import { ApiContext } from '../../../../../context/ApiContext'
 import { deletePost } from '../../../../../redux/slices/posts.slice'
 import { sessionExpired } from '../../../../../redux/slices/user.slice'
 import styles from './MenuDeleteUpdate.module.scss'
 
 function MenuDeleteUpdate({ post }) {
+    const [isLoading, setIsLoading] = useState(false)
     const BASE_URL = useContext(ApiContext)
     const user = useSelector((state) => state.user)
     const dispatch = useDispatch()
@@ -17,6 +19,7 @@ function MenuDeleteUpdate({ post }) {
     // Suppression d'un post :
     async function handleClickDelete() {
         try {
+            setIsLoading(true)
             const response = await fetch(`${BASE_URL}/posts/${postId}`, {
                 method: 'DELETE',
                 headers: {
@@ -36,6 +39,8 @@ function MenuDeleteUpdate({ post }) {
             }
         } catch (e) {
             console.error(e)
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -48,13 +53,17 @@ function MenuDeleteUpdate({ post }) {
             >
                 Modifier
             </Link>
-            <Link
-                to={currentUrl}
-                className={styles.deleteLink}
-                onClick={handleClickDelete}
-            >
-                Supprimer
-            </Link>
+            {isLoading ? (
+                <Loader />
+            ) : (
+                <Link
+                    to={currentUrl}
+                    className={styles.deleteLink}
+                    onClick={handleClickDelete}
+                >
+                    Supprimer
+                </Link>
+            )}
         </nav>
     )
 }

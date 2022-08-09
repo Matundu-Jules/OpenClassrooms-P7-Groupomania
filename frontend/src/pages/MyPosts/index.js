@@ -6,6 +6,7 @@ import { getUserPosts } from '../../redux/slices/posts.slice'
 import Post from '../Home/components/Post'
 import styles from './MyPosts.module.scss'
 import Login from '../Login'
+import Loader from '../../components/Loader'
 
 function MyPosts() {
     const [isLoading, setIsLoading] = useState(false)
@@ -60,7 +61,7 @@ function MyPosts() {
                 <div className={styles.homepage}>
                     <h1>Mes posts</h1>
                     {isLoading ? (
-                        <p>Chargement...</p>
+                        <Loader />
                     ) : (
                         <>
                             {myPosts &&

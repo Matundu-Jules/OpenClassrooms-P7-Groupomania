@@ -7,6 +7,7 @@ import * as yup from 'yup'
 import { ApiContext } from '../../../../../context/ApiContext'
 import { sessionExpired } from '../../../../../redux/slices/user.slice'
 import styles from './UpdatePost.module.scss'
+import Loader from '../../../../../components/Loader'
 
 function UpdatePost() {
     const [isLoading, setIsLoading] = useState(false)
@@ -39,8 +40,8 @@ function UpdatePost() {
             .required('Une description est requise.')
             .min(3, 'Votre description est trop courte.')
             .max(
-                140,
-                'Votre description est trop longue. 140 caractères maximum.'
+                360,
+                'Votre description est trop longue. 360 caractères maximum.'
             ),
         img: yup
             .mixed()
@@ -213,7 +214,7 @@ function UpdatePost() {
                         )}
                     </div>
                     {isLoading ? (
-                        <p>Chargement...</p>
+                        <Loader />
                     ) : (
                         <div>
                             {isSuccess ? (

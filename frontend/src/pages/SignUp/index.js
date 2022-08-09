@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { ApiContext } from '../../context/ApiContext'
 import styles from './SignUp.module.scss'
+import Loader from '../../components/Loader'
 
 function SignUp() {
     const [success, setSuccess] = useState(false)
@@ -68,7 +69,6 @@ function SignUp() {
                 },
                 body: JSON.stringify(newUser),
             })
-            // console.log(response)
             const data = await response.json()
             console.log(data)
             if (!response.ok) {
@@ -163,7 +163,7 @@ function SignUp() {
                         )}
                     </div>
                     {isLoading ? (
-                        <p>Chargement...</p>
+                        <Loader />
                     ) : (
                         <button
                             className="btn btn-reverse-primary"

@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import Loader from '../../components/Loader'
 import { ApiContext } from '../../context/ApiContext'
 import { getAllPosts } from '../../redux/slices/posts.slice'
 import { sessionExpired } from '../../redux/slices/user.slice'
@@ -54,12 +55,12 @@ function Home() {
         <>
             {user.isConnected ? (
                 <div className={styles.homepage}>
-                    <h1>{`Bienvenue ${user.pseudo}`}</h1>
-                    <p>Vous etes connecter.</p>
                     {isLoading ? (
-                        <p>Chargement...</p>
+                        <Loader />
                     ) : (
                         <>
+                            <h1>{`Bienvenue ${user.pseudo}`}</h1>
+                            <p>Vous etes connecter.</p>
                             {posts &&
                                 posts.map((p) => <Post post={p} key={p._id} />)}
                         </>

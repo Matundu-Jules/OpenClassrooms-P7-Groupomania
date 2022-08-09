@@ -38,12 +38,16 @@ export const postsSlice = createSlice({
             return state
         },
         deletePost: (state, action) => {
-            state.allPosts = state.allPosts.filter(
-                (post) => post._id !== action.payload
-            )
-            state.myPosts = state.myPosts.filter(
-                (post) => post._id !== action.payload
-            )
+            if (state.allPosts) {
+                state.allPosts = state.allPosts.filter(
+                    (post) => post._id !== action.payload
+                )
+            } else if (state.myPosts) {
+                state.myPosts = state.myPosts.filter(
+                    (post) => post._id !== action.payload
+                )
+            }
+
             return state
         },
     },

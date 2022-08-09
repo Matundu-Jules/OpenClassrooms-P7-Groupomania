@@ -180,18 +180,25 @@ function Post({ post }) {
         }
     }
 
+    // Afficher le menu de suppression et de modification pour les auteurs des posts et l'admin :
+    let menuDeleteUpdate
+
+    if (user.id === post.userId || user.role === 'Admin') {
+        menuDeleteUpdate = (
+            <i
+                className={`fa-solid fa-bars ${styles.menu}`}
+                onClick={() => setShowMenuDeleteUpdate(!showMenuDeleteUpdate)}
+            ></i>
+        )
+    } else {
+        menuDeleteUpdate = null
+    }
+
     return (
         <div className={`card ${styles.post}`}>
             <div className={styles.infosCardContainer}>
                 <div className={styles.titleContainer}>
-                    {user.id === post.userId && (
-                        <i
-                            className={`fa-solid fa-bars ${styles.menu}`}
-                            onClick={() =>
-                                setShowMenuDeleteUpdate(!showMenuDeleteUpdate)
-                            }
-                        ></i>
-                    )}
+                    {menuDeleteUpdate && <>{menuDeleteUpdate}</>}
                     {showMenuDeleteUpdate && <MenuDeleteUpdate post={post} />}
                     <h2>{post.title}</h2>
                 </div>

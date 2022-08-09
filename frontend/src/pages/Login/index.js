@@ -76,6 +76,7 @@ function Login() {
                         token: data.token,
                         pseudo: data.pseudo,
                         createdAt: data.createdAt,
+                        role: data.role,
                         isConnected: true,
                     },
                 })

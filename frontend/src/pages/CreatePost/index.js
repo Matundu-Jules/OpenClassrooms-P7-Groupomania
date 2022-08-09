@@ -24,14 +24,14 @@ function CreatePost() {
             .string()
             .required('Un titre est requis.')
             .min(5, 'Votre titre est trop court.')
-            .max(25, 'Votre titre est trop long.'),
+            .max(40, 'Votre titre est trop long.'),
         description: yup
             .string()
             .required('Une description est requise.')
             .min(3, 'Votre description est trop courte.')
             .max(
-                140,
-                'Votre description est trop longue. 140 caractères maximum.'
+                360,
+                'Votre description est trop longue. 360 caractères maximum.'
             ),
         img: yup
             .mixed()

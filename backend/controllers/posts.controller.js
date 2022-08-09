@@ -86,45 +86,48 @@ exports.modifyPost = async (req, res, next) => {
         const postId = req.params.id
         const post = await getPostQuery(postId)
 
-        if (post.userId !== req.user.userId) {
+        if (post.userId !== req.user.userId && req.user.role !== 'Admin') {
             res.status(403)
             throw new Error('403: Unauthorized request.')
-        }
+        } else if (
+            post.userId === req.user.userId ||
+            req.user.role === 'Admin'
+        ) {
+            let modifiedPost
 
-        let modifiedPost
+            // Si une nouvelle img est ajouté alors on l'enregistre et on supprime l'ancienne du répertoire :
+            if (req.file) {
+                modifiedPost = {
+                    ...JSON.parse(req.body.post),
+                    imageUrl: `${req.protocol}://${req.get(
+                        'host'
+                    )}/uploads/images/${req.file.filename}`,
+                }
 
-        // Si une nouvelle img est ajouté alors on l'enregistre et on supprime l'ancienne du répertoire :
-        if (req.file) {
-            modifiedPost = {
-                ...JSON.parse(req.body.post),
-                imageUrl: `${req.protocol}://${req.get(
-                    'host'
-                )}/uploads/images/${req.file.filename}`,
+                // Récupérer l'url de l'ancienne image du post :
+                const imgUrl = post.imageUrl
+
+                // Création d'un path pour supprimer l'ancienne image :
+                const path = './uploads/images/' + imgUrl.split('/images/')[1]
+
+                // Suppression de l'ancienne image :
+                fs.unlink(path, (err) => {
+                    if (err) throw err
+                    console.log('Fichier supprimé !')
+                })
             }
 
-            // Récupérer l'url de l'ancienne image du post :
-            const imgUrl = post.imageUrl
+            // Si aucune image n'est reçue lors de la modification alors on récupère uniquement les données via le body :
+            if (!req.file) {
+                modifiedPost = { ...req.body }
+            }
 
-            // Création d'un path pour supprimer l'ancienne image :
-            const path = './uploads/images/' + imgUrl.split('/images/')[1]
-
-            // Suppression de l'ancienne image :
-            fs.unlink(path, (err) => {
-                if (err) throw err
-                console.log('Fichier supprimé !')
+            // Appliquer les modification dans la base de données :
+            await modifyPostQuery(postId, modifiedPost)
+            res.status(201).json({
+                message: 'La modification de la post a bien été effectuer.',
             })
         }
-
-        // Si aucune image n'est reçue lors de la modification alors on récupère uniquement les données via le body :
-        if (!req.file) {
-            modifiedPost = { ...req.body }
-        }
-
-        // Appliquer les modification dans la base de données :
-        await modifyPostQuery(postId, modifiedPost)
-        res.status(201).json({
-            message: 'La modification de la post a bien été effectuer.',
-        })
     } catch (err) {
         next(err)
     }
@@ -136,22 +139,25 @@ exports.deletePost = async (req, res, next) => {
         const postId = req.params.id
         const post = await getPostQuery(postId)
 
-        if (post.userId !== req.user.userId) {
+        if (post.userId !== req.user.userId && req.user.role !== 'Admin') {
             res.status(403)
             throw new Error('403: Unauthorized request.')
+        } else if (
+            post.userId === req.user.userId ||
+            req.user.role === 'Admin'
+        ) {
+            await deletePostQuery(postId)
+
+            const imgUrl = post.imageUrl
+            const path = './uploads/images/' + imgUrl.split('/images/')[1]
+
+            fs.unlink(path, (err) => {
+                if (err) throw err
+                console.log('Fichier supprimé !')
+            })
+
+            res.status(200).json({ message: 'La post a bien été supprimé !' })
         }
-
-        await deletePostQuery(postId)
-
-        const imgUrl = post.imageUrl
-        const path = './uploads/images/' + imgUrl.split('/images/')[1]
-
-        fs.unlink(path, (err) => {
-            if (err) throw err
-            console.log('Fichier supprimé !')
-        })
-
-        res.status(200).json({ message: 'La post a bien été supprimé !' })
     } catch (err) {
         next(err)
     }

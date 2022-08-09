@@ -86,6 +86,7 @@ exports.userLogin = async (req, res, next) => {
                     userId: user._id,
                     pseudo: user.pseudo,
                     createdAt: user.createdAt,
+                    role: user.role,
                     token: createJwtToken(user),
                 })
             } else {

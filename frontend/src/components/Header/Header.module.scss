@@ -1,20 +1,51 @@
-header {
+@use '../../assets/styles/mixins' as mixin;
+
+.header {
+    position: relative;
     display: flex;
     align-items: center;
     width: 100%;
-    padding: 20px;
+    height: 60px;
+    padding: 20px 10px;
     background-color: var(--gray-2);
+    box-shadow: var(--box-shadow-nav);
+}
 
-    div {
-        flex: 1 1 auto;
+.logoContainer {
+    flex: 1 1 auto;
+    line-height: 10px;
 
-        img {
-            width: 200px;
-        }
+    img {
+        width: 180px;
+        cursor: pointer;
     }
-    nav {
-        a {
-            margin-right: 10px;
-        }
+}
+
+.navigation {
+    a {
+        margin-right: 10px;
     }
+
+    @include mixin.xs {
+        display: none;
+    }
+}
+
+.headerXs {
+    display: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    font-size: 20px;
+    margin-right: 15px;
+
+    &:hover {
+        opacity: 0.8;
+    }
+
+    @include mixin.xs {
+        display: block;
+    }
+}
+.active {
+    color: var(--primary);
 }

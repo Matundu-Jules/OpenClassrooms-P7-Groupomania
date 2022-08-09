@@ -183,7 +183,10 @@ function UpdatePost() {
                         )}
                     </div>
                     <div className={styles.oldImageContainer}>
-                        <img src={image ? image : post.imageUrl} alt="" />
+                        <img
+                            src={image ? image : post.imageUrl}
+                            alt={post.title}
+                        />
                     </div>
                     <div className={`${styles.labelInputContainer}`}>
                         <label htmlFor="img">Image</label>

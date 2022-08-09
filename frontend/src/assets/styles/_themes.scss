@@ -57,7 +57,7 @@ input {
     padding: 10px 15px;
     border: 2px solid var(--gray-2);
     border-radius: 20px;
-    width: 300px;
+    width: 100%;
     &:focus-visible {
         outline: 2px solid var(--primary);
     }
@@ -67,21 +67,15 @@ textarea {
     padding: 10px 15px;
     border: 2px solid var(--gray-2);
     border-radius: 20px;
-    width: 300px;
+    max-width: 100%;
+    width: 500px;
     &:focus-visible {
         outline: 2px solid var(--primary);
     }
 }
 
 .form-error {
-    margin: 0;
-    color: var(--red-1);
-    font-weight: 500;
-    font-size: 12px;
-}
-
-.form-error {
-    margin: 0;
+    margin: 3px 0 0 0;
     color: var(--error);
     font-weight: 500;
     font-size: 12px;

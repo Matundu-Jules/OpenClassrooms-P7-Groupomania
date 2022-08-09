@@ -11,6 +11,9 @@ import Loader from '../../components/Loader'
 
 function CreatePost() {
     const [isLoading, setIsLoading] = useState(false)
+    const [isSuccess, setIsSuccess] = useState(null)
+    const [image, setImage] = useState(null)
+    const [imageName, setImageName] = useState('')
     const user = useSelector((state) => state.user)
     const BASE_URL = useContext(ApiContext)
     const dispatch = useDispatch()
@@ -106,6 +109,7 @@ function CreatePost() {
                 }
             } else {
                 reset(defaultValues)
+                setIsSuccess(data.message)
             }
         } catch (e) {
             console.error(e)
@@ -114,12 +118,22 @@ function CreatePost() {
         }
     }
 
+    // Afficher la nouvelle image lors du changement :
+    function onImageChange(e) {
+        const [file] = e.target.files
+        setImage(URL.createObjectURL(file))
+        setImageName(file.name.split('.')[0])
+    }
+
     return (
         <section>
             {!user.isConnected ? (
                 <Navigate to="/login" replace={true} />
             ) : (
-                <form className="card" onSubmit={handleSubmit(submit)}>
+                <form
+                    className={`card ${styles.formCreatePost}`}
+                    onSubmit={handleSubmit(submit)}
+                >
                     <h1>Créer un post</h1>
                     <div className={`${styles.labelInputContainer}`}>
                         <label htmlFor="title">Titre du post</label>
@@ -130,11 +144,20 @@ function CreatePost() {
                     </div>
                     <div className={`${styles.labelInputContainer}`}>
                         <label htmlFor="img">Image</label>
+                        {image && (
+                            <div className={styles.imageContainer}>
+                                <img
+                                    src={image && image}
+                                    alt={image && imageName}
+                                />
+                            </div>
+                        )}
                         <input
                             type="file"
                             id="img"
                             name="img"
                             {...register('img')}
+                            onChange={onImageChange}
                         />
                         {errors?.img && (
                             <p className="form-error">{errors.img.message}</p>
@@ -158,12 +181,21 @@ function CreatePost() {
                     {isLoading ? (
                         <Loader />
                     ) : (
-                        <button
-                            className="btn btn-reverse-primary"
-                            disabled={isSubmitting}
-                        >
-                            Valider
-                        </button>
+                        <div>
+                            {isSuccess ? (
+                                <>
+                                    <p>{isSuccess}</p>
+                                    <Navigate to="/" replace={true} />
+                                </>
+                            ) : (
+                                <button
+                                    className="btn btn-reverse-primary"
+                                    disabled={isSubmitting}
+                                >
+                                    Valider
+                                </button>
+                            )}
+                        </div>
                     )}
                 </form>
             )}

@@ -60,9 +60,18 @@ function Home() {
                     ) : (
                         <>
                             <h1>{`Bienvenue ${user.pseudo}`}</h1>
-                            <p>Vous etes connecter.</p>
-                            {posts &&
-                                posts.map((p) => <Post post={p} key={p._id} />)}
+                            <div
+                                className={`${
+                                    user.role === 'Admin'
+                                        ? `${styles.dashboardAdmin}`
+                                        : `${styles.postsContainer}`
+                                } `}
+                            >
+                                {posts &&
+                                    posts.map((p) => (
+                                        <Post post={p} key={p._id} />
+                                    ))}
+                            </div>
                         </>
                     )}
                 </div>

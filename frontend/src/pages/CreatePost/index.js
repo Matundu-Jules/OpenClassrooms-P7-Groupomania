@@ -27,15 +27,15 @@ function CreatePost() {
         title: yup
             .string()
             .required('Un titre est requis.')
-            .min(5, 'Votre titre est trop court.')
-            .max(40, 'Votre titre est trop long.'),
+            .min(5, 'Votre titre est trop court. 5 caractères minimum.')
+            .max(40, 'Votre titre est trop long. 40 caractères maximum.'),
         description: yup
             .string()
             .required('Une description est requise.')
-            .min(3, 'Votre description est trop courte.')
+            .min(5, 'Votre description est trop courte. 5 caractères minimum.')
             .max(
-                360,
-                'Votre description est trop longue. 360 caractères maximum.'
+                200,
+                'Votre description est trop longue. 200 caractères maximum.'
             ),
         img: yup
             .mixed()
@@ -170,6 +170,7 @@ function CreatePost() {
                             id="description"
                             cols="30"
                             rows="10"
+                            wrap="soft"
                             {...register('description')}
                         ></textarea>
                         {errors?.description && (

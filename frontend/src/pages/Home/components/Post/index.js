@@ -195,40 +195,48 @@ function Post({ post }) {
     }
 
     return (
-        <div className={`card ${styles.post}`}>
-            <div className={styles.infosCardContainer}>
-                <div className={styles.titleContainer}>
-                    {menuDeleteUpdate && <>{menuDeleteUpdate}</>}
-                    {showMenuDeleteUpdate && <MenuDeleteUpdate post={post} />}
-                    <h2>{post.title}</h2>
-                </div>
-                <p
-                    className={styles.date}
-                >{`${dateString} à ${hourMinFormat}`}</p>
-                <div className={styles.imageContainer}>
-                    <img src={post.imageUrl} alt={post.title} />
-                </div>
-                <p className={styles.pseudo}>{`Par ${post.pseudo}.`}</p>
+        <div
+            className={`card ${
+                user.role === 'Admin' ? `${styles.adminPost}` : `${styles.post}`
+            }`}
+        >
+            <div className={styles.menuContainer}>
+                {menuDeleteUpdate && <>{menuDeleteUpdate}</>}
+                {showMenuDeleteUpdate && <MenuDeleteUpdate post={post} />}
+            </div>
+            <h3>{post.title}</h3>
+            <p className={styles.date}>{`${dateString} à ${hourMinFormat}`}</p>
+            <div
+                className={`${
+                    user.role === 'Admin'
+                        ? `${styles.adminImageContainer}`
+                        : `${styles.imageContainer}`
+                } `}
+            >
+                <img src={post.imageUrl} alt={post.title} />
+            </div>
+            <p className={styles.pseudo}>{`Par ${post.pseudo}.`}</p>
+            <div className={styles.descriptionContainer}>
                 <p className={styles.description}>{post.description}</p>
-                <div className={styles.reactionContainer}>
-                    <div className={styles.likeContainer}>
-                        <i
-                            className={`fa-solid fa-thumbs-up ${
-                                isLiked ? `${styles.isLiked}` : ''
-                            }`}
-                            onClick={handleClickLike}
-                        ></i>
-                        <span>{likes}</span>
-                    </div>
-                    <div className={styles.dislikeContainer}>
-                        <i
-                            className={`fa-solid fa-thumbs-up ${
-                                isDisliked ? `${styles.isDisliked}` : ''
-                            }`}
-                            onClick={handleClickDislike}
-                        ></i>
-                        <span>{dislikes}</span>
-                    </div>
+            </div>
+            <div className={styles.reactionContainer}>
+                <div className={styles.likeContainer}>
+                    <i
+                        className={`fa-solid fa-thumbs-up ${
+                            isLiked ? `${styles.isLiked}` : ''
+                        }`}
+                        onClick={handleClickLike}
+                    ></i>
+                    <span>{likes}</span>
+                </div>
+                <div className={styles.dislikeContainer}>
+                    <i
+                        className={`fa-solid fa-thumbs-up ${
+                            isDisliked ? `${styles.isDisliked}` : ''
+                        }`}
+                        onClick={handleClickDislike}
+                    ></i>
+                    <span>{dislikes}</span>
                 </div>
             </div>
         </div>

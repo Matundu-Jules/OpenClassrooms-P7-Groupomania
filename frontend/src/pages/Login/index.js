@@ -94,7 +94,10 @@ function Login() {
             {user.isConnected ? (
                 <Navigate to="/" replace={true} />
             ) : (
-                <form className="card" onSubmit={handleSubmit(submit)}>
+                <form
+                    className={`card ${styles.loginForm}`}
+                    onSubmit={handleSubmit(submit)}
+                >
                     {user.errorToken && (
                         <p className="form-error">{user.errorToken}</p>
                     )}

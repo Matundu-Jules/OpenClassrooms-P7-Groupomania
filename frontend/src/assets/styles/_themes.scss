@@ -56,9 +56,10 @@ label {
 
 input {
     padding: 10px 15px;
-    border: 2px solid var(--gray-2);
+    border: 0.5px solid var(--gray-1);
     border-radius: 20px;
     width: 100%;
+    text-align: center;
     &:focus-visible {
         outline: 2px solid var(--primary);
     }

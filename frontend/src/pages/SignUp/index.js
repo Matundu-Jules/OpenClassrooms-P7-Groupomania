@@ -102,7 +102,10 @@ function SignUp() {
             {success ? (
                 <Navigate to="/" replace={true} />
             ) : (
-                <form className="card" onSubmit={handleSubmit(submit)}>
+                <form
+                    className={`card ${styles.formSignup}`}
+                    onSubmit={handleSubmit(submit)}
+                >
                     <h1>Inscription</h1>
                     <div className={`${styles.labelInputContainer}`}>
                         <label htmlFor="pseudo">Pseudo</label>

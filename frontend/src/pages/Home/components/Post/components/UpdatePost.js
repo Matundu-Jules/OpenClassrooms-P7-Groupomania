@@ -97,6 +97,8 @@ function UpdatePost() {
                 const modifiedPost = {
                     title: values.title,
                     description: values.description,
+                    userId: user.id,
+                    pseudo: user.pseudo,
                 }
 
                 // Création du FormData :
@@ -134,6 +136,8 @@ function UpdatePost() {
                 const modifiedPost = {
                     title: values.title,
                     description: values.description,
+                    userId: user.id,
+                    pseudo: user.pseudo,
                 }
 
                 // Envoie de la requête PUT :

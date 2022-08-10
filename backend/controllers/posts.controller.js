@@ -9,22 +9,6 @@ const {
 const path = require('path')
 const fs = require('fs')
 
-//
-// Récupération d'un post :
-// exports.getPost = async (req, res, next) => {
-//     try {
-//         // Récupération id passé dans l'url :
-//         const postId = req.params.id
-
-//         // Récupération de la post via son Id :
-//         const post = await getPostQuery(postId)
-//         res.status(200).json(post)
-//     } catch (err) {
-//         next(err)
-//     }
-// }
-//
-
 // Création de post :
 exports.createPost = async (req, res, next) => {
     try {

@@ -24,7 +24,7 @@ const storage = multer.diskStorage({
 // Autoriser uniquement les images des types déclaré au préalable :
 const fileFilter = (req, file, cb) => {
     if (!MIME_TYPES[file.mimetype]) {
-        cb(new Error('Seuls les formats JPG et PNG sont pris en charge.'))
+        cb(new Error('Seuls les formats JPG, PNG et WEBP sont pris en charge.'))
     } else {
         cb(null, true)
     }

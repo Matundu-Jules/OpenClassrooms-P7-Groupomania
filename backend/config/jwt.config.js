@@ -8,6 +8,7 @@ exports.createJwtToken = (user) => {
         {
             sub: user._id.toString(),
             role: user.role,
+            pseudo: user.pseudo,
         },
         secret,
         { expiresIn: '1h' }
@@ -34,10 +35,8 @@ exports.verifyJwtToken = (req, res, next) => {
         // Vérification du token :
         const decodedToken = jwt.verify(token, secret)
 
-        const { sub: userId, role } = decodedToken
-        // console.log('userid : ', userId)
-        // console.log('role : ', role)
-        req.user = { userId, role }
+        const { sub: userId, role, pseudo } = decodedToken
+        req.user = { userId, role, pseudo }
 
         if (req.body.userId && req.user.userId !== userId) {
             throw new Error("Token d'authentification invalide !")

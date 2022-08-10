@@ -23,6 +23,8 @@ function SignUp() {
         pseudo: yup
             .string()
             .required('Un pseudo est requis.')
+            .trim('Veuillez supprimer les espaces avant/après votre pseudo.')
+            .strict(true)
             .min(3, 'Le pseudo est trop court.')
             .max(15, 'Le pseudo est trop grand.'),
         email: yup

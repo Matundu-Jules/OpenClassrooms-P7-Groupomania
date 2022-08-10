@@ -10,20 +10,20 @@ exports.userSignup = async (req, res, next) => {
         const emailExist = await emailExistQuery(req.body.email)
 
         if (pseudoExist && emailExist) {
-            res.status(400).json({
+            return res.status(400).json({
                 userCreated: false,
                 errorPseudo:
                     'Ce pseudo est déja pris, veuillez en choisir un nouveau.',
                 errorEmail: 'Cet email est déja associé à un compte !',
             })
         } else if (pseudoExist) {
-            res.status(400).json({
+            return res.status(400).json({
                 userCreated: false,
                 errorPseudo:
                     'Ce pseudo est déja pris, veuillez en choisir un nouveau.',
             })
         } else if (emailExist) {
-            res.status(400).json({
+            return res.status(400).json({
                 userCreated: false,
                 errorEmail: 'Cet email est déja associé à un compte !',
             })
@@ -38,7 +38,7 @@ exports.userSignup = async (req, res, next) => {
             pseudo: req.body.pseudo,
             email: req.body.email,
             password: hash,
-            createdAt: new Date(),
+            // createdAt: new Date(),
         })
 
         // Enregistrement de l'user dans la BDD :
@@ -49,8 +49,9 @@ exports.userSignup = async (req, res, next) => {
             userCreated: true,
             message: 'Votre compte a bien été créer.',
         })
+        next()
     } catch (err) {
-        next(err)
+        return next(err)
     }
 }
 
@@ -62,7 +63,7 @@ exports.userLogin = async (req, res, next) => {
 
         // Si le user n'existe pas alors on retourne une erreur :
         if (!user) {
-            res.status(404).json({
+            return res.status(404).json({
                 wrongLogin: true,
                 errorEmail:
                     'Cet email est associé à aucun compte, veuillez vous inscrire.',
@@ -76,13 +77,13 @@ exports.userLogin = async (req, res, next) => {
 
             // Si les password ne sont pas les mêmes alors on retourne une erreur :
             if (!passwordIsValid) {
-                res.status(401).json({
+                return res.status(401).json({
                     wrongLogin: true,
                     errorPassword: 'Mot de passe incorrect',
                 })
             } else if (user && passwordIsValid) {
                 // Sinon si tout est ok, on renvoie un statut 200 et json contenant l'userId et un token web JSON signé.
-                res.status(200).json({
+                return res.status(200).json({
                     userId: user._id,
                     pseudo: user.pseudo,
                     createdAt: user.createdAt,
@@ -94,6 +95,6 @@ exports.userLogin = async (req, res, next) => {
             }
         }
     } catch (err) {
-        next(err)
+        return next(err)
     }
 }

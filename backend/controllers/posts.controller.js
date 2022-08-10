@@ -109,7 +109,7 @@ exports.modifyPost = async (req, res, next) => {
             // Appliquer les modification dans la base de données :
             await modifyPostQuery(postId, modifiedPost)
             res.status(201).json({
-                message: 'La modification de la post a bien été effectuer.',
+                message: 'La modification du post a bien été effectuer.',
             })
         }
     } catch (err) {

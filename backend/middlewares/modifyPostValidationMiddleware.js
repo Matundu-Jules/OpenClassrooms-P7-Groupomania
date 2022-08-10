@@ -1,5 +1,22 @@
-const createValidation = (schema) => async (req, res, next) => {
-    const post = JSON.parse(req.body.post)
+const modifyValidation = (schema) => async (req, res, next) => {
+    let dataForValidation
+    let post
+
+    if (req.file) {
+        post = JSON.parse(req.body.post)
+        dataForValidation = {
+            ...post,
+            image: req.file,
+        }
+    } else if (!req.file && req.body.post) {
+        return res.status(400).json({
+            errorMessage:
+                "Si vous ne souhaitez pas mettre à jour l'image, merci d'envoyer du JSON.",
+        })
+    } else {
+        post = req.body
+        dataForValidation = { ...req.body }
+    }
 
     // Erreur userId :
     if (post.userId !== req.user.userId) {
@@ -17,11 +34,6 @@ const createValidation = (schema) => async (req, res, next) => {
         })
     }
 
-    const dataForValidation = {
-        ...post,
-        image: req.file,
-    }
-
     try {
         await schema.validate(dataForValidation)
         next()
@@ -30,4 +42,4 @@ const createValidation = (schema) => async (req, res, next) => {
     }
 }
 
-module.exports = createValidation
+module.exports = modifyValidation

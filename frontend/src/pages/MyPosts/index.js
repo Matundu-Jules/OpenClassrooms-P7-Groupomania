@@ -5,8 +5,8 @@ import { sessionExpired } from '../../redux/slices/user.slice'
 import { getUserPosts } from '../../redux/slices/posts.slice'
 import Post from '../Home/components/Post'
 import styles from './MyPosts.module.scss'
-import Login from '../Login'
 import Loader from '../../components/Loader'
+import { Navigate } from 'react-router-dom'
 
 function MyPosts() {
     const [isLoading, setIsLoading] = useState(false)
@@ -63,23 +63,16 @@ function MyPosts() {
                     {isLoading ? (
                         <Loader />
                     ) : (
-                        <>
+                        <div className={styles.dashboardMyPosts}>
                             {myPosts &&
                                 myPosts.map((p) => (
                                     <Post post={p} key={p._id} />
                                 ))}
-                        </>
+                        </div>
                     )}
                 </div>
             ) : (
-                <div className={styles.homepage}>
-                    <h1>Bienvenue sur Groupomania</h1>
-                    <p>
-                        Vous ne pouvez pas accéder à cette page, merci de vous
-                        connecter.
-                    </p>
-                    <Login />
-                </div>
+                <Navigate to="/" replace={true} />
             )}
         </>
     )

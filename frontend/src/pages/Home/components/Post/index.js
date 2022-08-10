@@ -5,9 +5,9 @@ import MenuDeleteUpdate from './components/MenuDeleteUpdate'
 import styles from './Post.module.scss'
 import { ApiContext } from '../../../../context/ApiContext'
 import { sessionExpired } from '../../../../redux/slices/user.slice'
+import { useLocation } from 'react-router-dom'
 
 function Post({ post }) {
-    // console.log(post)
     const user = useSelector((state) => state.user)
     const dispatch = useDispatch()
     const BASE_URL = useContext(ApiContext)
@@ -16,18 +16,14 @@ function Post({ post }) {
     // Vérifier si l'user à déja liker et initialiser le state :
     const liked = !!post.usersLiked.find((id) => id === user.id)
     const [isLiked, setIsLiked] = useState(liked)
-    // console.log('like', isLiked)
 
     // Vérifier si l'user à déja disliker et initialiser le state :
     const disliked = !!post.usersDisliked.find((id) => id === user.id)
     const [isDisliked, setIsDisliked] = useState(disliked)
-    // console.log('dislike', isDisliked)
 
     // Ajout d'un state pour mettre à jour les likes / dislikes :
     let [likes, setLikes] = useState(post.likes)
     let [dislikes, setDislikes] = useState(post.dislikes)
-    // console.log(likes)
-    // console.log(dislikes)
 
     // Gestion de la date et de l'heure.
     const date = moment(post.createdAt).locale('fr')
@@ -194,29 +190,37 @@ function Post({ post }) {
         menuDeleteUpdate = null
     }
 
+    // Définition de variable pour les classes :
+    let postContainer, titleContainer, imageContainer, descriptionContainer
+    let currentUrl = useLocation().pathname
+
+    if (user.role === 'Admin' || currentUrl === '/myposts') {
+        postContainer = styles.adminPost
+        titleContainer = styles.adminTitleContainer
+        imageContainer = styles.adminImageContainer
+        descriptionContainer = styles.adminDescriptionContainer
+    } else {
+        postContainer = styles.post
+        titleContainer = styles.titleContainer
+        imageContainer = styles.imageContainer
+        descriptionContainer = styles.descriptionContainer
+    }
+
     return (
-        <div
-            className={`card ${
-                user.role === 'Admin' ? `${styles.adminPost}` : `${styles.post}`
-            }`}
-        >
+        <div className={`card ${postContainer}`}>
             <div className={styles.menuContainer}>
                 {menuDeleteUpdate && <>{menuDeleteUpdate}</>}
                 {showMenuDeleteUpdate && <MenuDeleteUpdate post={post} />}
             </div>
-            <h3>{post.title}</h3>
+            <div className={`${titleContainer}`}>
+                <h3>{post.title}</h3>
+            </div>
             <p className={styles.date}>{`${dateString} à ${hourMinFormat}`}</p>
-            <div
-                className={`${
-                    user.role === 'Admin'
-                        ? `${styles.adminImageContainer}`
-                        : `${styles.imageContainer}`
-                } `}
-            >
+            <div className={`${imageContainer} `}>
                 <img src={post.imageUrl} alt={post.title} />
             </div>
             <p className={styles.pseudo}>{`Par ${post.pseudo}.`}</p>
-            <div className={styles.descriptionContainer}>
+            <div className={`${descriptionContainer} `}>
                 <p className={styles.description}>{post.description}</p>
             </div>
             <div className={styles.reactionContainer}>

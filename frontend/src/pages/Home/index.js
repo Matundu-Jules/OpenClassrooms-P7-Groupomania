@@ -78,10 +78,6 @@ function Home() {
             ) : (
                 <div className={styles.homepage}>
                     <h1>Bienvenue sur Groupomania</h1>
-                    <p>
-                        Vous ne pouvez pas accéder à cette page, merci de vous
-                        connecter.
-                    </p>
                     <Login />
                 </div>
             )}

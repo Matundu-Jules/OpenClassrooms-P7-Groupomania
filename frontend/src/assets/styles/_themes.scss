@@ -65,9 +65,14 @@ input {
     }
 }
 
+input[type='file'] {
+    border: none;
+    margin-top: 5px;
+}
+
 textarea {
     padding: 10px 15px;
-    border: 2px solid var(--gray-2);
+    border: 0.5px solid var(--gray-1);
     border-radius: 20px;
     max-width: 100%;
     width: 500px;

@@ -23,23 +23,28 @@ exports.verifyJwtToken = (req, res, next) => {
         // Récupération du token :
         const token = req.headers.authorization.split(' ')[1]
 
+        // Retourner une une erreur si le token n'est plus valide, ou n'est pas valide :
         try {
             jwt.verify(token, secret)
         } catch (e) {
-            res.status(401).json({
+            return res.status(401).json({
                 tokenExpired: true,
                 message: 'Votre session à expirer, Veuillez vous reconnecter.',
             })
         }
 
-        // Vérification du token :
+        // Vérification et récupération des valeurs du token :
         const decodedToken = jwt.verify(token, secret)
-
         const { sub: userId, role, pseudo } = decodedToken
+
+        // Création de la key req.user pour créer des vérification sur les routes :
         req.user = { userId, role, pseudo }
 
+        // Message d'erreur si le token n'appartient pas au même utilisateur :
         if (req.body.userId && req.user.userId !== userId) {
-            throw new Error("Token d'authentification invalide !")
+            return res.status(401).json({
+                message: "Token d'authentification invalide !",
+            })
         }
         next()
     } catch (err) {

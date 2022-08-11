@@ -9,12 +9,12 @@ const {
 const path = require('path')
 const fs = require('fs')
 
-// Création de post :
+// Création de post //
 exports.createPost = async (req, res, next) => {
     try {
         const postObject = JSON.parse(req.body.post)
 
-        // Création d'un' post à partir des données formulaire :
+        // Création d'un post à partir des données formulaire :
         const post = new Post({
             ...postObject,
             imageUrl: `${req.protocol}://${req.get('host')}/uploads/images/${
@@ -34,7 +34,7 @@ exports.createPost = async (req, res, next) => {
     }
 }
 
-// Récupération de tout les posts :
+// Récupération de tout les posts //
 exports.getAllposts = async (req, res, next) => {
     try {
         const posts = await getAllPostsQuery()
@@ -44,7 +44,7 @@ exports.getAllposts = async (req, res, next) => {
     }
 }
 
-// Récupération de tout les posts d'un user :
+// Récupération de tout les posts d'un user //
 exports.getUserPosts = async (req, res, next) => {
     try {
         const userId = req.params.userId
@@ -64,12 +64,13 @@ exports.getUserPosts = async (req, res, next) => {
     }
 }
 
-// Modifier un post :
+// Modifier un post //
 exports.modifyPost = async (req, res, next) => {
     try {
         const postId = req.params.id
         const post = await getPostQuery(postId)
 
+        // Si l'id de l'user est différent de celui qui a creer le post ou si ce n'est pas l'admin :
         if (post.userId !== req.user.userId && req.user.role !== 'Admin') {
             return res.status(403).json({
                 errorMessage:
@@ -119,7 +120,7 @@ exports.modifyPost = async (req, res, next) => {
     }
 }
 
-// Suppression de post :
+// Suppression de post //
 exports.deletePost = async (req, res, next) => {
     try {
         const postId = req.params.id
@@ -151,7 +152,7 @@ exports.deletePost = async (req, res, next) => {
     }
 }
 
-// Ajout de like et dislike :
+// Ajout de like et dislike //
 exports.addLike = async (req, res, next) => {
     try {
         const postId = req.params.id

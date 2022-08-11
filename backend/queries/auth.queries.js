@@ -1,9 +1,11 @@
-const User = require("../models/user.model");
+const User = require('../models/user.model')
 
-exports.emailExistQuery = email => {
-    return User.findOne({email}).exec();
-};
+// Vérifier si l'email est déja associé à un user dans la BDD //
+exports.emailExistQuery = (email) => {
+    return User.findOne({ email }).exec()
+}
 
-exports.pseudoExistQuery = pseudo => {
-    return User.findOne({pseudo}).exec();
-};
+// Vérifier si le pseudo est déja associé à un user dans la BDD //
+exports.pseudoExistQuery = (pseudo) => {
+    return User.findOne({ pseudo }).exec()
+}

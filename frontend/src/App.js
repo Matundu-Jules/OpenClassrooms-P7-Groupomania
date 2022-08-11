@@ -11,9 +11,13 @@ import UpdatePost from './pages/Home/components/Post/components/UpdatePost'
 import MyPosts from './pages/MyPosts'
 
 function App() {
+    // Redux :
     const dispatch = useDispatch()
+
+    // Vérifier si l'user est déja connecté :
     dispatch({ type: 'user/checkIfAlreadyConnect' })
 
+    // Définition des différentes routes :
     return (
         <div className={`${styles.appContainer}`}>
             <Header />

@@ -10,9 +10,12 @@ import styles from './UpdatePost.module.scss'
 import Loader from '../../../../../components/Loader'
 
 function UpdatePost() {
+    // States :
     const [isLoading, setIsLoading] = useState(false)
     const [isSuccess, setIsSuccess] = useState(null)
     const [image, setImage] = useState(null)
+
+    // Redux :
     const user = useSelector((state) => state.user)
     const BASE_URL = useContext(ApiContext)
     const dispatch = useDispatch()

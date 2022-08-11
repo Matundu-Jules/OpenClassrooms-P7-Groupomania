@@ -8,10 +8,15 @@ import { sessionExpired } from '../../../../redux/slices/user.slice'
 import { useLocation } from 'react-router-dom'
 
 function Post({ post }) {
+    // State :
+    const [showMenuDeleteUpdate, setShowMenuDeleteUpdate] = useState(false)
+
+    // Redux :
     const user = useSelector((state) => state.user)
     const dispatch = useDispatch()
+
+    // Context :
     const BASE_URL = useContext(ApiContext)
-    const [showMenuDeleteUpdate, setShowMenuDeleteUpdate] = useState(false)
 
     // Vérifier si l'user à déja liker et initialiser le state :
     const liked = !!post.usersLiked.find((id) => id === user.id)
@@ -32,11 +37,12 @@ function Post({ post }) {
     const minString = date.format('mm')
     const hourMinFormat = `${hourString}h${minString}`
 
-    // Ajout de Likes :
+    // Ajout de Likes //
     async function handleClickLike() {
         try {
             // Si l'user n'a pas liker ou a déja disliker :
             if (!isLiked || isDisliked) {
+                // Requête POST - Ajout de like :
                 const response = await fetch(
                     `${BASE_URL}/posts/${post._id}/like`,
                     {
@@ -54,6 +60,7 @@ function Post({ post }) {
 
                 const data = await response.json()
 
+                // Vérification et renvoie des erreurs si la requête échoue :
                 if (!response.ok) {
                     if (data.tokenExpired) {
                         dispatch(sessionExpired({ errorToken: data.message }))
@@ -71,6 +78,7 @@ function Post({ post }) {
                 }
             } else {
                 // Sinon si l'user a déja liker :
+                // Requête POST - Annulation du like :
                 const response = await fetch(
                     `${BASE_URL}/posts/${post._id}/like`,
                     {
@@ -87,6 +95,7 @@ function Post({ post }) {
                 )
                 const data = await response.json()
 
+                // Vérification et renvoie des erreurs si la requête échoue :
                 if (!response.ok) {
                     if (data.tokenExpired) {
                         dispatch(sessionExpired({ errorToken: data.message }))
@@ -104,10 +113,11 @@ function Post({ post }) {
         }
     }
 
-    // Ajout de Dislikes :
+    // Ajout de Dislikes //
     async function handleClickDislike() {
         try {
             // Si l'user n'a pas disliker ou a déja liker :
+            // Requête POST - Ajout du dislike :
             if (!isDisliked || isLiked) {
                 const response = await fetch(
                     `${BASE_URL}/posts/${post._id}/like`,
@@ -126,6 +136,7 @@ function Post({ post }) {
 
                 const data = await response.json()
 
+                // Vérification et renvoie des erreurs si la requête échoue :
                 if (!response.ok) {
                     if (data.tokenExpired) {
                         dispatch(sessionExpired({ errorToken: data.message }))
@@ -143,6 +154,7 @@ function Post({ post }) {
                 }
             } else {
                 // Sinon si l'user a déja disliker :
+                // Requête POST - Annulation du dislike :
                 const response = await fetch(
                     `${BASE_URL}/posts/${post._id}/like`,
                     {
@@ -159,6 +171,7 @@ function Post({ post }) {
                 )
                 const data = await response.json()
 
+                // Vérification et renvoie des erreurs si la requête échoue :
                 if (!response.ok) {
                     if (data.tokenExpired) {
                         dispatch(sessionExpired({ errorToken: data.message }))
@@ -176,7 +189,7 @@ function Post({ post }) {
         }
     }
 
-    // Afficher le menu de suppression et de modification pour les auteurs des posts et l'admin :
+    // Afficher le menu de suppression et de modification pour les users propriétaire des posts et l'admin :
     let menuDeleteUpdate
 
     if (user.id === post.userId || user.role === 'Admin') {

@@ -11,6 +11,7 @@ import './assets/styles/index.scss'
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
     <React.StrictMode>
+        {/* Utilisation du store Redux */}
         <Provider store={userStore}>
             <BrowserRouter>
                 <ApiContext.Provider value="http://localhost:3001/api">

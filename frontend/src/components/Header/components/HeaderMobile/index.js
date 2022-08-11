@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import styles from './HeaderMobile.module.scss'
 
 function HeaderMobile({ user, handleClickLogout }) {
+    // Définition du style pour les users et pour l'admin //
     let navigation
 
     if (!user.role) {

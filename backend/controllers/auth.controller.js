@@ -3,9 +3,10 @@ const { createJwtToken } = require('../config/jwt.config')
 const User = require('../models/user.model')
 const { emailExistQuery, pseudoExistQuery } = require('../queries/auth.queries')
 
-// Création nouvel utilisateur :
+// Création nouvel utilisateur //
 exports.userSignup = async (req, res, next) => {
     try {
+        // Récupération et vérification de l'existance du pseudo et email dans la BDD :
         const pseudoExist = await pseudoExistQuery(req.body.pseudo)
         const emailExist = await emailExistQuery(req.body.email)
 
@@ -38,7 +39,6 @@ exports.userSignup = async (req, res, next) => {
             pseudo: req.body.pseudo,
             email: req.body.email,
             password: hash,
-            // createdAt: new Date(),
         })
 
         // Enregistrement de l'user dans la BDD :
@@ -56,7 +56,7 @@ exports.userSignup = async (req, res, next) => {
     }
 }
 
-// Connexion utilisateur :
+// Connexion utilisateur //
 exports.userLogin = async (req, res, next) => {
     try {
         // Récupération de l'user via l'email si existant :

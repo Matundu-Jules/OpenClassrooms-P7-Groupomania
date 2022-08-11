@@ -10,19 +10,27 @@ import styles from './CreatePost.module.scss'
 import Loader from '../../components/Loader'
 
 function CreatePost() {
+    // States :
     const [isLoading, setIsLoading] = useState(false)
     const [isSuccess, setIsSuccess] = useState(null)
     const [image, setImage] = useState(null)
     const [imageName, setImageName] = useState('')
+
+    // Redux :
     const user = useSelector((state) => state.user)
-    const BASE_URL = useContext(ApiContext)
     const dispatch = useDispatch()
+
+    // Context :
+    const BASE_URL = useContext(ApiContext)
+
+    // Valeurs par défaut du formulaire //
     const defaultValues = {
         title: '',
         description: '',
         img: '',
     }
 
+    // Schema de validations pour le formulaire //
     const postSchema = yup.object({
         title: yup
             .string()
@@ -68,6 +76,7 @@ function CreatePost() {
             ),
     })
 
+    // Importation des fonctions et connexion du schema via le resolver Yup //
     const {
         formState: { errors, isSubmitting },
         register,
@@ -78,19 +87,23 @@ function CreatePost() {
         resolver: yupResolver(postSchema),
     })
 
+    // Soumission du formulaire //
     async function submit(values) {
         try {
             setIsLoading(true)
 
+            // Récupération des valeurs :
             const { img, ...post } = values
             const image = img[0]
             post.userId = user.id
             post.pseudo = user.pseudo
 
+            // Création du FormData :
             let formData = new FormData()
             formData.append('image', image)
             formData.append('post', JSON.stringify(post))
 
+            // Requête POST :
             const response = await fetch(`${BASE_URL}/posts`, {
                 method: 'POST',
                 headers: {
@@ -101,6 +114,7 @@ function CreatePost() {
 
             const data = await response.json()
 
+            // Vérification et renvoie des erreurs si la requête échoue :
             if (!response.ok) {
                 if (data.tokenExpired) {
                     dispatch(sessionExpired({ errorToken: data.message }))
@@ -118,7 +132,7 @@ function CreatePost() {
         }
     }
 
-    // Afficher la nouvelle image lors du changement :
+    // Afficher la nouvelle image lors d'un changement :
     function onImageChange(e) {
         const [file] = e.target.files
         setImage(URL.createObjectURL(file))
@@ -135,6 +149,7 @@ function CreatePost() {
                     onSubmit={handleSubmit(submit)}
                 >
                     <h1>Créer un post</h1>
+                    {/* Titre */}
                     <div className={`${styles.labelInputContainer}`}>
                         <label htmlFor="title">Titre du post</label>
                         <input type="text" id="title" {...register('title')} />
@@ -142,6 +157,8 @@ function CreatePost() {
                             <p className="form-error">{errors.title.message}</p>
                         )}
                     </div>
+
+                    {/* Image */}
                     <div className={`${styles.labelInputContainer}`}>
                         <label htmlFor="img">Image</label>
                         {image && (
@@ -163,6 +180,8 @@ function CreatePost() {
                             <p className="form-error">{errors.img.message}</p>
                         )}
                     </div>
+
+                    {/* Description */}
                     <div className={`${styles.labelInputContainer}`}>
                         <label htmlFor="description">Description</label>
                         <textarea
@@ -179,6 +198,11 @@ function CreatePost() {
                             </p>
                         )}
                     </div>
+
+                    {/* 
+                    Si les datas chargent affiche le loader et si le post est crée => redirection.
+                    Sinon afficher le bouton.
+                     */}
                     {isLoading ? (
                         <Loader />
                     ) : (

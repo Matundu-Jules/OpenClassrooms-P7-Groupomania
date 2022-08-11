@@ -12,19 +12,26 @@ export const userSlice = createSlice({
         errorToken: null,
     },
     reducers: {
+        // Connexion :
         login: (state, action) => {
+            // Récupération des valeurs dans le payload :
             const { id, token, pseudo, isConnected, createdAt, role } =
                 action.payload
 
+            // Définition des valeurs du state user :
             state.id = id
             state.token = token
             state.pseudo = pseudo
             state.createdAt = createdAt
             state.isConnected = isConnected
             state.role = role
+
+            // Stocker les valeur dans le localStorage pour persister la connexion :
             localStorage.setItem('user', JSON.stringify(action.payload))
         },
+        // Deconnexion :
         logout: (state) => {
+            // Suppression des valeurs dans le state et dans le localStorage :
             state.id = null
             state.token = null
             state.pseudo = null
@@ -34,6 +41,7 @@ export const userSlice = createSlice({
             state.role = null
             localStorage.clear()
         },
+        // Vérifier si l'user est déja connecter :
         checkIfAlreadyConnect: (state) => {
             if (localStorage.getItem('user')) {
                 const user = JSON.parse(localStorage.getItem('user'))
@@ -52,6 +60,7 @@ export const userSlice = createSlice({
                 state.role = null
             }
         },
+        // Supprssion des valeurs su state et localStorage si la session est expirer (Token expirer)
         sessionExpired: (state, action) => {
             state.id = null
             state.token = null

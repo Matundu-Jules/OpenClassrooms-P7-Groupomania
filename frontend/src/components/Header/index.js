@@ -7,10 +7,14 @@ import { useState } from 'react'
 import HeaderMobile from './components/HeaderMobile'
 
 function Header() {
+    // State :
     const [showMenu, setShowMenu] = useState(false)
+
+    // Redux :
     const user = useSelector((state) => state.user)
     const dispatch = useDispatch()
 
+    // Définition du style pour les users et pour l'admin //
     let navigation
     if (user.role === 'Basic') {
         navigation = (
@@ -71,6 +75,7 @@ function Header() {
         )
     }
 
+    // Gestion event pour la déconnexion //
     function handleClickLogout() {
         dispatch(logout())
     }

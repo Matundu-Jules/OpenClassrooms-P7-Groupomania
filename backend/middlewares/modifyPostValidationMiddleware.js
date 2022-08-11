@@ -2,6 +2,7 @@ const modifyValidation = (schema) => async (req, res, next) => {
     let dataForValidation
     let post
 
+    // Différent cas de validations : Avec / Sans image :
     if (req.file) {
         post = JSON.parse(req.body.post)
         dataForValidation = {

@@ -9,17 +9,26 @@ import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../../components/Loader'
 
 function Login() {
+    // State :
     const [isLoading, setIsLoading] = useState(false)
+
+    // Redux :
     const user = useSelector((state) => state.user)
-    const BASE_URL = useContext(ApiContext)
     const dispatch = useDispatch()
+
+    // Context :
+    const BASE_URL = useContext(ApiContext)
+
+    // Récupération du msg pour confirmer la création de compte :
     const { state: msgUserCreated } = useLocation()
 
+    // Valeur par défaut du fomulaire :
     const defaultValues = {
         email: '',
         password: '',
     }
 
+    // Schema de validation du formulaire :
     const loginSchema = yup.object({
         email: yup
             .string()
@@ -28,6 +37,7 @@ function Login() {
         password: yup.string().required('Le mot de passe est obligatoire.'),
     })
 
+    // Import des fonctions de useForm et Lier les validations au formulaire :
     const {
         formState: { errors, isSubmitting },
         register,
@@ -45,6 +55,7 @@ function Login() {
         try {
             setIsLoading(true)
 
+            // Requête POST - Connexion :
             const response = await fetch(`${BASE_URL}/auth/login`, {
                 method: 'POST',
                 headers: {
@@ -55,6 +66,7 @@ function Login() {
 
             const data = await response.json()
 
+            // Gestion d'erreur :
             if (!response.ok) {
                 if (data.wrongLogin) {
                     setError('emailExist', {
@@ -70,6 +82,8 @@ function Login() {
                 }
             } else {
                 reset(defaultValues)
+
+                // Ajouter tout les infos de l'user dans le state "user" gérer par Redux :
                 dispatch({
                     type: 'user/login',
                     payload: {

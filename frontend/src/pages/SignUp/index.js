@@ -8,9 +8,16 @@ import styles from './SignUp.module.scss'
 import Loader from '../../components/Loader'
 
 function SignUp() {
-    let navigate = useNavigate()
+    // State :
     const [isLoading, setIsLoading] = useState(false)
+
+    // Context :
     const BASE_URL = useContext(ApiContext)
+
+    // Importation de useNavigate pour créer une redirection et passer une props :
+    let navigate = useNavigate()
+
+    // Valeurs par défaut du formulaire :
     const defaultValues = {
         pseudo: '',
         email: '',
@@ -18,7 +25,7 @@ function SignUp() {
         confirmPassword: '',
     }
 
-    // Yup Schema :
+    // Schema de validations pour le formulaire :
     const authSchema = yup.object({
         pseudo: yup
             .string()
@@ -44,6 +51,7 @@ function SignUp() {
             ),
     })
 
+    // Import des fonctions de useForm et Lier les validations au formulaire :
     const {
         formState: { errors, isSubmitting },
         register,
@@ -56,14 +64,17 @@ function SignUp() {
         resolver: yupResolver(authSchema),
     })
 
-    // POST : Création nouvel utilisateur
+    // Soumission du formulaire //
     async function submit(values) {
-        const { confirmPassword, ...newUser } = values
-
         clearErrors()
+
+        // Récupération des valeurs :
+        const { confirmPassword, ...newUser } = values
 
         try {
             setIsLoading(true)
+
+            // Requête POST - Création nouvel utilisateur :
             const response = await fetch(`${BASE_URL}/auth/signup`, {
                 method: 'POST',
                 headers: {
@@ -71,8 +82,10 @@ function SignUp() {
                 },
                 body: JSON.stringify(newUser),
             })
+
             const data = await response.json()
 
+            // Gestion d'erreur :
             if (!response.ok) {
                 if (!data.userCreated) {
                     setError('pseudoExist', {
@@ -88,6 +101,8 @@ function SignUp() {
                 }
             } else {
                 reset(defaultValues)
+
+                // Redirection avec msg de confirmation de création de compte :
                 navigate('/', {
                     replace: true,
                     state: data.message,

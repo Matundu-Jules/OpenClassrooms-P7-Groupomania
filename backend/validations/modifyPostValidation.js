@@ -1,5 +1,6 @@
 const yup = require('yup')
 
+// Validation pour la modification de post //
 const modifyPostSchema = yup.object({
     title: yup.string().min(5).max(40).required(),
     description: yup.string().min(5).max(200).required(),

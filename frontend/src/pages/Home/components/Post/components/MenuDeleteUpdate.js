@@ -8,15 +8,23 @@ import { sessionExpired } from '../../../../../redux/slices/user.slice'
 import styles from './MenuDeleteUpdate.module.scss'
 
 function MenuDeleteUpdate({ post }) {
+    // State :
     const [isLoading, setIsLoading] = useState(false)
-    const BASE_URL = useContext(ApiContext)
+
+    // Redux :
     const user = useSelector((state) => state.user)
     const dispatch = useDispatch()
+
+    // Context :
+    const BASE_URL = useContext(ApiContext)
+
+    // Récupération de l'id du post :
     const postId = post._id
 
+    // Récupération de l'url actuel :
     const currentUrl = useLocation().pathname
 
-    // Suppression d'un post :
+    // Suppression d'un post //
     async function handleClickDelete() {
         try {
             setIsLoading(true)

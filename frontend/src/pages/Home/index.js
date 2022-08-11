@@ -9,20 +9,27 @@ import Post from './components/Post'
 import styles from './Home.module.scss'
 
 function Home() {
+    // State :
     const [isLoading, setIsLoading] = useState(false)
+
+    // Redux :
     const user = useSelector((state) => state.user)
     let posts = useSelector((state) => state.posts.allPosts)
-
-    const BASE_URL = useContext(ApiContext)
     const dispatch = useDispatch()
 
+    // Context :
+    const BASE_URL = useContext(ApiContext)
+
     useEffect(() => {
+        // Si le user n'a plus de token, ne pas éxécuter le code du useEffect :
         if (!user.token) {
             return
         } else {
             async function getAllPost() {
                 try {
                     setIsLoading(true)
+
+                    // Requête GET : Récupérer tout les posts :
                     const response = await fetch(`${BASE_URL}/posts`, {
                         headers: {
                             Authorization: `Bearer ${user.token}`,
@@ -30,6 +37,7 @@ function Home() {
                     })
                     const data = await response.json()
 
+                    // Vérification et renvoie des erreurs si la requête échoue :
                     if (!response.ok) {
                         if (data.tokenExpired) {
                             dispatch(
@@ -39,6 +47,7 @@ function Home() {
                             throw new Error('Une erreur est survenue.')
                         }
                     } else {
+                        // Ajouter tout les posts dans le state "posts" gérer par Redux :
                         dispatch(getAllPosts(data))
                     }
                 } catch (e) {

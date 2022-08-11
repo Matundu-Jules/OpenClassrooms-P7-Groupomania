@@ -9,13 +9,16 @@ import Loader from '../../components/Loader'
 import { Navigate } from 'react-router-dom'
 
 function MyPosts() {
+    // State :
     const [isLoading, setIsLoading] = useState(false)
-    // Récupérer l'id de l'user depuis l'url :
+
+    // Redux :
     const user = useSelector((state) => state.user)
     const myPosts = useSelector((state) => state.posts.myPosts)
-
-    const BASE_URL = useContext(ApiContext)
     const dispatch = useDispatch()
+
+    // Context :
+    const BASE_URL = useContext(ApiContext)
 
     useEffect(() => {
         if (!user.token) {
@@ -24,6 +27,8 @@ function MyPosts() {
             async function getAllUserPost() {
                 try {
                     setIsLoading(true)
+
+                    // Requête GET - Récupération de tout les posts créer par l'user :
                     const response = await fetch(
                         `${BASE_URL}/posts/myposts/${user.id}`,
                         {
@@ -32,8 +37,10 @@ function MyPosts() {
                             },
                         }
                     )
+
                     const data = await response.json()
 
+                    // Gestion d'erreurs :
                     if (!response.ok) {
                         if (data.tokenExpired) {
                             dispatch(
@@ -43,6 +50,7 @@ function MyPosts() {
                             throw new Error('Une erreur est survenue.')
                         }
                     } else {
+                        // Ajouter tout les posts dans le state "myPosts" gérer par Redux :
                         dispatch(getUserPosts(data))
                     }
                 } catch (e) {

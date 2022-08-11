@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react'
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import * as yup from 'yup'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -8,7 +8,7 @@ import styles from './SignUp.module.scss'
 import Loader from '../../components/Loader'
 
 function SignUp() {
-    const [success, setSuccess] = useState(false)
+    let navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false)
     const BASE_URL = useContext(ApiContext)
     const defaultValues = {
@@ -72,7 +72,7 @@ function SignUp() {
                 body: JSON.stringify(newUser),
             })
             const data = await response.json()
-            console.log(data)
+
             if (!response.ok) {
                 if (!data.userCreated) {
                     setError('pseudoExist', {
@@ -88,7 +88,10 @@ function SignUp() {
                 }
             } else {
                 reset(defaultValues)
-                setSuccess(true)
+                navigate('/', {
+                    replace: true,
+                    state: data.message,
+                })
             }
         } catch (e) {
             console.error(e)
@@ -99,86 +102,74 @@ function SignUp() {
 
     return (
         <section>
-            {success ? (
-                <Navigate to="/" replace={true} />
-            ) : (
-                <form
-                    className={`card ${styles.formSignup}`}
-                    onSubmit={handleSubmit(submit)}
-                >
-                    <h1>Inscription</h1>
-                    <div className={`${styles.labelInputContainer}`}>
-                        <label htmlFor="pseudo">Pseudo</label>
-                        <input
-                            type="text"
-                            id="pseudo"
-                            {...register('pseudo')}
-                        />
-                        {errors?.pseudo ? (
-                            <p className="form-error">
-                                {errors.pseudo.message}
-                            </p>
-                        ) : errors.pseudoExist ? (
-                            <p className="form-error">
-                                {errors.pseudoExist.message}
-                            </p>
-                        ) : (
-                            ''
-                        )}
-                    </div>
-                    <div className={`${styles.labelInputContainer}`}>
-                        <label htmlFor="email">Email</label>
-                        <input type="email" id="email" {...register('email')} />
-                        {errors?.email ? (
-                            <p className="form-error">{errors.email.message}</p>
-                        ) : errors.emailExist ? (
-                            <p className="form-error">
-                                {errors.emailExist.message}
-                            </p>
-                        ) : (
-                            ''
-                        )}
-                    </div>
-                    <div className={`${styles.labelInputContainer}`}>
-                        <label htmlFor="password">Mot de passe</label>
-                        <input
-                            type="password"
-                            id="password"
-                            {...register('password')}
-                        />
-                        {errors?.password && (
-                            <p className="form-error">
-                                {errors.password.message}
-                            </p>
-                        )}
-                    </div>
-                    <div className={`${styles.labelInputContainer}`}>
-                        <label htmlFor="confirmPassword">
-                            Confirmation du mot de passe
-                        </label>
-                        <input
-                            type="password"
-                            id="confirmPassword"
-                            {...register('confirmPassword')}
-                        />
-                        {errors?.confirmPassword && (
-                            <p className="form-error">
-                                {errors.confirmPassword.message}
-                            </p>
-                        )}
-                    </div>
-                    {isLoading ? (
-                        <Loader />
+            <form
+                className={`card ${styles.formSignup}`}
+                onSubmit={handleSubmit(submit)}
+            >
+                <h1>Inscription</h1>
+                <div className={`${styles.labelInputContainer}`}>
+                    <label htmlFor="pseudo">Pseudo</label>
+                    <input type="text" id="pseudo" {...register('pseudo')} />
+                    {errors?.pseudo ? (
+                        <p className="form-error">{errors.pseudo.message}</p>
+                    ) : errors.pseudoExist ? (
+                        <p className="form-error">
+                            {errors.pseudoExist.message}
+                        </p>
                     ) : (
-                        <button
-                            className="btn btn-reverse-primary"
-                            disabled={isSubmitting}
-                        >
-                            Valider
-                        </button>
+                        ''
                     )}
-                </form>
-            )}
+                </div>
+                <div className={`${styles.labelInputContainer}`}>
+                    <label htmlFor="email">Email</label>
+                    <input type="email" id="email" {...register('email')} />
+                    {errors?.email ? (
+                        <p className="form-error">{errors.email.message}</p>
+                    ) : errors.emailExist ? (
+                        <p className="form-error">
+                            {errors.emailExist.message}
+                        </p>
+                    ) : (
+                        ''
+                    )}
+                </div>
+                <div className={`${styles.labelInputContainer}`}>
+                    <label htmlFor="password">Mot de passe</label>
+                    <input
+                        type="password"
+                        id="password"
+                        {...register('password')}
+                    />
+                    {errors?.password && (
+                        <p className="form-error">{errors.password.message}</p>
+                    )}
+                </div>
+                <div className={`${styles.labelInputContainer}`}>
+                    <label htmlFor="confirmPassword">
+                        Confirmation du mot de passe
+                    </label>
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        {...register('confirmPassword')}
+                    />
+                    {errors?.confirmPassword && (
+                        <p className="form-error">
+                            {errors.confirmPassword.message}
+                        </p>
+                    )}
+                </div>
+                {isLoading ? (
+                    <Loader />
+                ) : (
+                    <button
+                        className="btn btn-reverse-primary"
+                        disabled={isSubmitting}
+                    >
+                        Valider
+                    </button>
+                )}
+            </form>
         </section>
     )
 }

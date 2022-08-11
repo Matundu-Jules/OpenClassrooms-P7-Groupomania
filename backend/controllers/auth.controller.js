@@ -47,7 +47,8 @@ exports.userSignup = async (req, res, next) => {
         // Envoie de la réponse :
         res.status(201).json({
             userCreated: true,
-            message: 'Votre compte a bien été créer.',
+            message:
+                'Votre compte a bien été créer. \nVeuillez vous connecter.',
         })
         next()
     } catch (err) {

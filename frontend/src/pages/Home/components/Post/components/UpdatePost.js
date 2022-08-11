@@ -177,7 +177,10 @@ function UpdatePost() {
             {!user.isConnected ? (
                 <Navigate to="/login" replace={true} />
             ) : (
-                <form className="card" onSubmit={handleSubmit(submit)}>
+                <form
+                    className={`card ${styles.formUpdatePost}`}
+                    onSubmit={handleSubmit(submit)}
+                >
                     <h1>Modifier le post</h1>
                     <div className={`${styles.labelInputContainer}`}>
                         <label htmlFor="title">Titre du post</label>
@@ -186,7 +189,7 @@ function UpdatePost() {
                             <p className="form-error">{errors.title.message}</p>
                         )}
                     </div>
-                    <div className={styles.oldImageContainer}>
+                    <div className={styles.imageContainer}>
                         <img
                             src={image ? image : post.imageUrl}
                             alt={post.title}

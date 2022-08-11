@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useLocation } from 'react-router-dom'
 import * as yup from 'yup'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -13,6 +13,7 @@ function Login() {
     const user = useSelector((state) => state.user)
     const BASE_URL = useContext(ApiContext)
     const dispatch = useDispatch()
+    const { state: msgUserCreated } = useLocation()
 
     const defaultValues = {
         email: '',
@@ -51,9 +52,8 @@ function Login() {
                 },
                 body: JSON.stringify(values),
             })
-            console.log(response)
+
             const data = await response.json()
-            console.log(data)
 
             if (!response.ok) {
                 if (data.wrongLogin) {
@@ -98,6 +98,11 @@ function Login() {
                     className={`card ${styles.loginForm}`}
                     onSubmit={handleSubmit(submit)}
                 >
+                    {msgUserCreated && (
+                        <p className={styles.msgUserCreated}>
+                            {msgUserCreated}
+                        </p>
+                    )}
                     {user.errorToken && (
                         <p className="form-error">{user.errorToken}</p>
                     )}

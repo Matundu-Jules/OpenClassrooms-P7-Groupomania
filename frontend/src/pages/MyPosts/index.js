@@ -63,12 +63,18 @@ function MyPosts() {
                     {isLoading ? (
                         <Loader />
                     ) : (
-                        <div className={styles.dashboardMyPosts}>
-                            {myPosts &&
-                                myPosts.map((p) => (
-                                    <Post post={p} key={p._id} />
-                                ))}
-                        </div>
+                        <>
+                            {!myPosts && (
+                                <p>Vous n'avez pas encore créer de post.</p>
+                            )}
+
+                            <div className={styles.dashboardMyPosts}>
+                                {myPosts &&
+                                    myPosts.map((p) => (
+                                        <Post post={p} key={p._id} />
+                                    ))}
+                            </div>
+                        </>
                     )}
                 </div>
             ) : (

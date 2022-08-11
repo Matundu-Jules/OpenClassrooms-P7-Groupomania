@@ -33,9 +33,14 @@ export const postsSlice = createSlice({
                 return 0
             }
 
-            action.payload.sort(sortArrayByDate)
-            state.myPosts = action.payload
-            return state
+            if (action.payload.length === 0) {
+                state.myPosts = null
+                return state
+            } else {
+                action.payload.sort(sortArrayByDate)
+                state.myPosts = action.payload
+                return state
+            }
         },
         deletePost: (state, action) => {
             if (state.allPosts) {

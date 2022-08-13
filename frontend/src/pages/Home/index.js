@@ -4,7 +4,6 @@ import Loader from '../../components/Loader'
 import { ApiContext } from '../../context/ApiContext'
 import { getAllPosts } from '../../redux/slices/posts.slice'
 import { sessionExpired } from '../../redux/slices/user.slice'
-import Login from '../Login'
 import Post from './components/Post'
 import styles from './Home.module.scss'
 
@@ -63,7 +62,7 @@ function Home() {
     return (
         <>
             {user.isConnected ? (
-                <div className={styles.homepage}>
+                <main className={styles.homepage}>
                     {isLoading ? (
                         <Loader />
                     ) : (
@@ -83,11 +82,18 @@ function Home() {
                             </div>
                         </>
                     )}
-                </div>
+                </main>
             ) : (
                 <div className={styles.homepage}>
                     <h1>Bienvenue sur Groupomania</h1>
-                    <Login />
+                    {user.errorToken ? (
+                        <p className="form-error">{user.errorToken}</p>
+                    ) : (
+                        <p>
+                            Pour accéder au site, veuillez vous inscrire ou vous
+                            connecter.
+                        </p>
+                    )}
                 </div>
             )}
         </>

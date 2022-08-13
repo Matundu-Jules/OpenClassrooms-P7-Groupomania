@@ -4,10 +4,10 @@ import { Navigate, useLocation } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
-import { ApiContext } from '../../../../../context/ApiContext'
-import { sessionExpired } from '../../../../../redux/slices/user.slice'
+import { ApiContext } from '../../context/ApiContext'
+import { sessionExpired } from '../../redux/slices/user.slice'
 import styles from './UpdatePost.module.scss'
-import Loader from '../../../../../components/Loader'
+import Loader from '../../components/Loader'
 
 function UpdatePost() {
     // States :
@@ -199,7 +199,7 @@ function UpdatePost() {
                         />
                     </div>
                     <div className={`${styles.labelInputContainer}`}>
-                        <label htmlFor="img">Image</label>
+                        <label htmlFor="img">Image du post</label>
                         <input
                             type="file"
                             id="img"
@@ -212,7 +212,7 @@ function UpdatePost() {
                         )}
                     </div>
                     <div className={`${styles.labelInputContainer}`}>
-                        <label htmlFor="description">Description</label>
+                        <label htmlFor="description">Description du post</label>
                         <textarea
                             name="description"
                             id="description"
@@ -230,7 +230,7 @@ function UpdatePost() {
                     {isLoading ? (
                         <Loader />
                     ) : (
-                        <div>
+                        <>
                             {isSuccess ? (
                                 <>
                                     <p>{isSuccess}</p>
@@ -238,13 +238,14 @@ function UpdatePost() {
                                 </>
                             ) : (
                                 <button
+                                    type="submit"
                                     className="btn btn-reverse-primary"
                                     disabled={isSubmitting}
                                 >
-                                    Valider
+                                    Valider la modification
                                 </button>
                             )}
-                        </div>
+                        </>
                     )}
                 </form>
             )}

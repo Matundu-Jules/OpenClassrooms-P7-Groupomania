@@ -59,7 +59,7 @@ function MenuDeleteUpdate({ post }) {
                 className={styles.modifyLink}
                 state={{ post, previousUrl: currentUrl }}
             >
-                Modifier
+                Modifier le post
             </Link>
             {isLoading ? (
                 <Loader />
@@ -69,7 +69,7 @@ function MenuDeleteUpdate({ post }) {
                     className={styles.deleteLink}
                     onClick={handleClickDelete}
                 >
-                    Supprimer
+                    Supprimer le post
                 </Link>
             )}
         </nav>

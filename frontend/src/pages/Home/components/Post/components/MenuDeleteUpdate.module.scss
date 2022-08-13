@@ -1,15 +1,16 @@
 .modifyDeleteLinkContainer {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-bottom: 10px;
+    margin: 10px 0 0 0;
     border-radius: 20px;
-    padding: 5px 0;
+    padding: 0;
 }
 
 .modifyLink {
-    color: black;
-    margin-right: 10px;
+    color: white;
+    margin-bottom: 10px;
     line-height: 20px;
 
     &:hover {
@@ -18,7 +19,7 @@
 }
 
 .deleteLink {
-    color: black;
+    color: white;
     line-height: 20px;
 
     &:hover {

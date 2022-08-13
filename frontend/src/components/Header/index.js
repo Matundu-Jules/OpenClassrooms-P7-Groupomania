@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import groupomaniaLogo from '../../assets/images/logo-modified.png'
 import styles from './Header.module.scss'
@@ -20,9 +20,9 @@ function Header() {
         navigation = (
             <>
                 <nav className={styles.navigation}>
-                    <Link to="/">Accueil</Link>
-                    <Link to="/post">Créer un Post</Link>
-                    <Link to="/myposts">Mes Posts</Link>
+                    <NavLink to="/">Accueil</NavLink>
+                    <NavLink to="/post">Créer un Post</NavLink>
+                    <NavLink to="/myposts">Mes Posts</NavLink>
                     <Link to="/" onClick={handleClickLogout}>
                         Déconnexion
                     </Link>
@@ -49,8 +49,8 @@ function Header() {
         navigation = (
             <>
                 <nav className={styles.navigation}>
-                    <Link to="/">Gérer les posts</Link>
-                    <Link to="/post">Créer un Post</Link>
+                    <NavLink to="/">Gérer les posts</NavLink>
+                    <NavLink to="/post">Créer un Post</NavLink>
                     <Link to="/" onClick={handleClickLogout}>
                         Déconnexion
                     </Link>
@@ -92,9 +92,9 @@ function Header() {
             ) : (
                 <>
                     <nav className={styles.navigation}>
-                        <Link to="/">Accueil</Link>
-                        <Link to="/login">Connexion</Link>
-                        <Link to="/signup">S'inscrire</Link>
+                        <NavLink to="/">Accueil</NavLink>
+                        <NavLink to="/login">Connexion</NavLink>
+                        <NavLink to="/signup">S'inscrire</NavLink>
                     </nav>
                     <i
                         className={`fa-solid fa-bars ${styles.headerXs}`}

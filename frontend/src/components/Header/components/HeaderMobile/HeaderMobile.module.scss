@@ -23,9 +23,8 @@
         cursor: pointer;
         border-radius: 20px;
         transition: background-color 0.2s, color 0.2s;
-        color: black;
         &:hover {
-            background-color: var(--primary);
+            background-color: var(--secondary);
             color: white;
         }
     }

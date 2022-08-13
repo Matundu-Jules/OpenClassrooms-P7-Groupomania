@@ -160,7 +160,7 @@ function CreatePost() {
 
                     {/* Image */}
                     <div className={`${styles.labelInputContainer}`}>
-                        <label htmlFor="img">Image</label>
+                        <label htmlFor="img">Image du post</label>
                         {image && (
                             <div className={styles.imageContainer}>
                                 <img
@@ -183,7 +183,7 @@ function CreatePost() {
 
                     {/* Description */}
                     <div className={`${styles.labelInputContainer}`}>
-                        <label htmlFor="description">Description</label>
+                        <label htmlFor="description">Description du post</label>
                         <textarea
                             name="description"
                             id="description"
@@ -206,7 +206,7 @@ function CreatePost() {
                     {isLoading ? (
                         <Loader />
                     ) : (
-                        <div>
+                        <>
                             {isSuccess ? (
                                 <>
                                     <p>{isSuccess}</p>
@@ -217,10 +217,10 @@ function CreatePost() {
                                     className="btn btn-reverse-primary"
                                     disabled={isSubmitting}
                                 >
-                                    Valider
+                                    Créer le post
                                 </button>
                             )}
-                        </div>
+                        </>
                     )}
                 </form>
             )}

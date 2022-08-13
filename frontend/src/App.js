@@ -7,7 +7,7 @@ import styles from './App.module.scss'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import CreatePost from './pages/CreatePost'
-import UpdatePost from './pages/Home/components/Post/components/UpdatePost'
+import UpdatePost from './pages/UpdatePost'
 import MyPosts from './pages/MyPosts'
 
 function App() {

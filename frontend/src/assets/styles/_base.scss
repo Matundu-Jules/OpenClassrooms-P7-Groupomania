@@ -2,9 +2,6 @@
 
 body {
     margin: 0;
-    font-family: var(--font-family);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     color: var(--text-color);
     background-color: white;
 }
@@ -17,6 +14,7 @@ h4 {
 }
 
 * {
+    font-family: var(--font-family);
     box-sizing: border-box;
 }
 
@@ -40,7 +38,13 @@ input {
 
 a {
     text-decoration: none;
-    color: var(--primary);
+    color: var(--text-color);
+    transition: all 0.2s;
+
+    &:hover {
+        color: var(--secondary);
+        font-weight: 700;
+    }
 }
 
 p {

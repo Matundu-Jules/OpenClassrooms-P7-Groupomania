@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import styles from './HeaderMobile.module.scss'
 
 function HeaderMobile({ user, handleClickLogout }) {
@@ -8,17 +8,17 @@ function HeaderMobile({ user, handleClickLogout }) {
     if (!user.role) {
         navigation = (
             <nav className={styles.menuContainer}>
-                <Link to="/">Accueil</Link>
-                <Link to="/login">Connexion</Link>
-                <Link to="/signup">S'inscrire</Link>
+                <NavLink to="/">Accueil</NavLink>
+                <NavLink to="/login">Connexion</NavLink>
+                <NavLink to="/signup">S'inscrire</NavLink>
             </nav>
         )
     } else if (user.role === 'Basic') {
         navigation = (
             <nav className={styles.menuContainer}>
-                <Link to="/">Accueil</Link>
-                <Link to="/post">Créer un Post</Link>
-                <Link to="/myposts">Mes Posts</Link>
+                <NavLink to="/">Accueil</NavLink>
+                <NavLink to="/post">Créer un Post</NavLink>
+                <NavLink to="/myposts">Mes Posts</NavLink>
                 <Link to="/" onClick={handleClickLogout}>
                     Déconnexion
                 </Link>
@@ -27,8 +27,8 @@ function HeaderMobile({ user, handleClickLogout }) {
     } else if (user.role === 'Admin') {
         navigation = (
             <nav className={styles.menuContainer}>
-                <Link to="/">Gérer les posts</Link>
-                <Link to="/post">Créer un Post</Link>
+                <NavLink to="/">Gérer les posts</NavLink>
+                <NavLink to="/post">Créer un Post</NavLink>
                 <Link to="/" onClick={handleClickLogout}>
                     Déconnexion
                 </Link>

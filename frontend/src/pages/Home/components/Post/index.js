@@ -190,17 +190,18 @@ function Post({ post }) {
     }
 
     // Afficher le menu de suppression et de modification pour les users propriétaire des posts et l'admin :
-    let menuDeleteUpdate
+    let menuDeleteUpdateIcon
 
     if (user.id === post.userId || user.role === 'Admin') {
-        menuDeleteUpdate = (
-            <i
-                className={`fa-solid fa-bars ${styles.menu}`}
+        menuDeleteUpdateIcon = (
+            <button
+                aria-label="Menu de modification et suppression du post."
+                className={`fa-solid fa-bars ${styles.menuIcon}`}
                 onClick={() => setShowMenuDeleteUpdate(!showMenuDeleteUpdate)}
-            ></i>
+            ></button>
         )
     } else {
-        menuDeleteUpdate = null
+        menuDeleteUpdateIcon = null
     }
 
     // Définition de variable pour les classes :
@@ -220,13 +221,15 @@ function Post({ post }) {
     }
 
     return (
-        <div className={`card ${postContainer}`}>
-            <div className={styles.menuContainer}>
-                {menuDeleteUpdate && <>{menuDeleteUpdate}</>}
-                {showMenuDeleteUpdate && <MenuDeleteUpdate post={post} />}
-            </div>
+        <article className={`card ${postContainer}`}>
+            {menuDeleteUpdateIcon && (
+                <div className={styles.menuContainer}>
+                    {menuDeleteUpdateIcon}
+                    {showMenuDeleteUpdate && <MenuDeleteUpdate post={post} />}
+                </div>
+            )}
             <div className={`${titleContainer}`}>
-                <h3>{post.title}</h3>
+                <h2>{post.title}</h2>
             </div>
             <p className={styles.date}>{`${dateString} à ${hourMinFormat}`}</p>
             <div className={`${imageContainer} `}>
@@ -238,25 +241,27 @@ function Post({ post }) {
             </div>
             <div className={styles.reactionContainer}>
                 <div className={styles.likeContainer}>
-                    <i
+                    <button
+                        aria-label="Liker le post"
                         className={`fa-solid fa-thumbs-up ${
                             isLiked ? `${styles.isLiked}` : ''
                         }`}
                         onClick={handleClickLike}
-                    ></i>
+                    ></button>
                     <span>{likes}</span>
                 </div>
                 <div className={styles.dislikeContainer}>
-                    <i
+                    <button
+                        aria-label="Disliker le post"
                         className={`fa-solid fa-thumbs-up ${
                             isDisliked ? `${styles.isDisliked}` : ''
                         }`}
                         onClick={handleClickDislike}
-                    ></i>
+                    ></button>
                     <span>{dislikes}</span>
                 </div>
             </div>
-        </div>
+        </article>
     )
 }
 

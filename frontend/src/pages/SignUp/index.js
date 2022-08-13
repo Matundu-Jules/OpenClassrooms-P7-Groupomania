@@ -103,7 +103,7 @@ function SignUp() {
                 reset(defaultValues)
 
                 // Redirection avec msg de confirmation de création de compte :
-                navigate('/', {
+                navigate('/login', {
                     replace: true,
                     state: data.message,
                 })
@@ -116,12 +116,17 @@ function SignUp() {
     }
 
     return (
-        <section>
+        <main>
+            <h1>Inscription</h1>
+            <p>
+                Pour pouvoir rejoindre notre communauté, inscrivez-vous dès
+                maintenant !
+            </p>
             <form
                 className={`card ${styles.formSignup}`}
                 onSubmit={handleSubmit(submit)}
             >
-                <h1>Inscription</h1>
+                <h2>Créer un compte</h2>
                 <div className={`${styles.labelInputContainer}`}>
                     <label htmlFor="pseudo">Pseudo</label>
                     <input type="text" id="pseudo" {...register('pseudo')} />
@@ -181,11 +186,11 @@ function SignUp() {
                         className="btn btn-reverse-primary"
                         disabled={isSubmitting}
                     >
-                        Valider
+                        Valider mon inscription
                     </button>
                 )}
             </form>
-        </section>
+        </main>
     )
 }
 

@@ -11,31 +11,30 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px 10% !important;
-
-    @include mixin.md {
-        padding: 20px 80px !important;
-    }
-    @include mixin.lg {
-        padding: 20px 80px !important;
-    }
-    @include mixin.xl {
-        padding: 20px 80px !important;
-    }
 }
 
 .menuContainer {
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    .menu {
-        margin-bottom: 10px;
+    padding: 15px 0;
+    background-color: var(--menu-card);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    .menuIcon {
+        // margin-bottom: 10px;
         font-size: 1.5em;
+        color: #ffffff;
+        background: none;
+        border: none;
+        cursor: pointer;
+        margin: 0;
+        padding: 0;
 
         &:hover {
             cursor: pointer;
-            color: var(--primary);
             transition: transform 0.2s;
             transform: scale(1.2);
         }
@@ -43,32 +42,36 @@
 }
 
 .titleContainer {
-    h3 {
-        color: var(--primary);
+    margin-top: 20px;
+    h2 {
+        color: var(--text-color);
         text-align: center;
     }
 }
 
 .date {
-    align-self: flex-end;
-    margin-bottom: 10px;
-    font-size: 12px;
+    width: 92%;
+    text-align: end;
     margin: 5px 0;
+    font-size: 12px;
 }
 
 .imageContainer {
-    width: 100%;
-    height: auto;
-    max-height: 300px;
+    width: 92%;
+    min-height: 125px;
+    max-height: 325px;
     border-radius: 20px;
     overflow: hidden;
-    margin-bottom: 0px;
     display: flex;
     align-items: center;
     justify-content: center;
+
     img {
-        width: 800px;
-        object-fit: contain;
+        min-height: 125px;
+        max-height: 325px;
+        min-width: 200px;
+        width: 100%;
+        object-fit: cover;
         transition: 1s transform;
         border-radius: 20px;
 
@@ -79,13 +82,15 @@
 }
 
 .pseudo {
-    align-self: flex-start;
+    width: 92%;
+    text-align: start;
     font-weight: 700;
     font-size: 12px;
     margin: 2px 0;
 }
 
 .descriptionContainer {
+    width: 92%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -98,16 +103,22 @@
 }
 
 .reactionContainer {
+    width: 92%;
     height: 40px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    align-self: flex-end;
+    margin-bottom: 20px;
 
-    i {
+    button {
         text-align: end;
         font-size: 25px;
         cursor: pointer;
+        background: none;
+        border: none;
+        cursor: pointer;
+        margin-right: 5px;
+        padding: 0;
         &:hover {
             transition: all 0.2s;
             transform: scale(1.2);
@@ -117,19 +128,27 @@
 
     .isLiked {
         color: var(--primary);
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
     }
     .isDisliked {
         color: var(--primary);
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
     }
 
     .likeContainer {
         margin-right: 10px;
-        i {
+        button {
             margin-right: 5px;
         }
     }
     .dislikeContainer {
-        i {
+        button {
             position: relative;
             top: 7px;
             transform: rotate(180deg);
@@ -148,7 +167,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px 40px;
 
     @include mixin.sm {
         justify-content: flex-start;
@@ -167,42 +185,45 @@
 }
 
 .adminTitleContainer {
-    width: 100%;
-    margin: 5px 0;
+    margin: 5px 10px;
 
     @include mixin.sm {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 50px;
+        height: 60px;
+        margin: 20px 10px;
     }
     @include mixin.md {
         display: flex;
         justify-content: center;
         align-items: center;
         height: 50px;
+        margin: 10px 10px;
     }
     @include mixin.lg {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 50px;
+        height: 60px;
+        margin: 10px 10px;
     }
     @include mixin.xl {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 50px;
+        height: 80px;
+        margin: 10px 10px;
     }
 
-    h3 {
-        color: var(--primary);
+    h2 {
+        color: var(--text-color);
         text-align: center;
     }
 }
 
 .adminImageContainer {
-    width: 100%;
+    width: 92%;
     height: auto;
     max-height: 200px;
     border-radius: 20px;
@@ -258,6 +279,7 @@
 }
 
 .adminDescriptionContainer {
+    width: 92%;
     display: flex;
     justify-content: center;
     align-items: center;

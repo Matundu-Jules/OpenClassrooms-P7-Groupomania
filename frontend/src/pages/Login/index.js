@@ -160,7 +160,7 @@ function Login() {
                             className="btn btn-reverse-primary"
                             disabled={isSubmitting}
                         >
-                            Valider
+                            Se connecter
                         </button>
                     )}
                 </form>

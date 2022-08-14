@@ -67,7 +67,7 @@ function MyPosts() {
         <>
             {user.isConnected ? (
                 <main className={styles.mypostsContainer}>
-                    <h1>Mes posts</h1>
+                    <h1 className={styles.titleMyPosts}>Mes posts</h1>
                     {isLoading ? (
                         <Loader />
                     ) : (

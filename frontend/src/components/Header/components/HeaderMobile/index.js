@@ -29,6 +29,7 @@ function HeaderMobile({ user, handleClickLogout }) {
             <nav className={styles.menuContainer}>
                 <NavLink to="/">Gérer les posts</NavLink>
                 <NavLink to="/post">Créer un Post</NavLink>
+                <NavLink to="/myposts">Mes Posts</NavLink>
                 <Link to="/" onClick={handleClickLogout}>
                     Déconnexion
                 </Link>

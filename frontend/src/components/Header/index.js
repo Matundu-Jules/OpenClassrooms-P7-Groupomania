@@ -51,6 +51,7 @@ function Header() {
                 <nav className={styles.navigation}>
                     <NavLink to="/">Gérer les posts</NavLink>
                     <NavLink to="/post">Créer un Post</NavLink>
+                    <NavLink to="/myposts">Mes Posts</NavLink>
                     <Link to="/" onClick={handleClickLogout}>
                         Déconnexion
                     </Link>

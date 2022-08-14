@@ -134,9 +134,14 @@ function CreatePost() {
 
     // Afficher la nouvelle image lors d'un changement :
     function onImageChange(e) {
-        const [file] = e.target.files
-        setImage(URL.createObjectURL(file))
-        setImageName(file.name.split('.')[0])
+        if (e.target.files.length === 0) {
+            setImage(null)
+            setImageName('')
+        } else {
+            const [file] = e.target.files
+            setImage(URL.createObjectURL(file))
+            setImageName(file.name.split('.')[0])
+        }
     }
 
     return (
@@ -148,7 +153,7 @@ function CreatePost() {
                     className={`card ${styles.formCreatePost}`}
                     onSubmit={handleSubmit(submit)}
                 >
-                    <h1>Créer un post</h1>
+                    <h1 className={styles.titleCreatePost}>Créer un post</h1>
                     {/* Titre */}
                     <div className={`${styles.labelInputContainer}`}>
                         <label htmlFor="title">Titre du post</label>

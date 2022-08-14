@@ -14,19 +14,24 @@
 .logoContainer {
     flex: 1 1 auto;
     line-height: 10px;
+    height: auto;
 
     img {
-        width: 180px;
+        width: 200px;
+        height: auto;
+        object-fit: cover;
         cursor: pointer;
     }
 }
 
 .navigation {
+    flex: 1 1 auto;
+    text-align: end;
     a {
         margin-right: 10px;
     }
 
-    @include mixin.xs {
+    @include mixin.sm-lt {
         display: none;
     }
 }
@@ -42,7 +47,7 @@
         opacity: 0.8;
     }
 
-    @include mixin.xs {
+    @include mixin.sm-lt {
         display: block;
     }
 }

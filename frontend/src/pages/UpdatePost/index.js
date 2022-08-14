@@ -85,8 +85,14 @@ function UpdatePost() {
 
     // Afficher la nouvelle image lors du changement :
     function onImageChange(e) {
-        const [file] = e.target.files
-        setImage(URL.createObjectURL(file))
+        console.log(e.target.files.length)
+
+        if (e.target.files.length === 0) {
+            setImage(post.image)
+        } else {
+            const [file] = e.target.files
+            setImage(URL.createObjectURL(file))
+        }
     }
 
     // Soumission du formulaire :
@@ -192,14 +198,14 @@ function UpdatePost() {
                             <p className="form-error">{errors.title.message}</p>
                         )}
                     </div>
-                    <div className={styles.imageContainer}>
-                        <img
-                            src={image ? image : post.imageUrl}
-                            alt={post.title}
-                        />
-                    </div>
                     <div className={`${styles.labelInputContainer}`}>
                         <label htmlFor="img">Image du post</label>
+                        <div className={styles.imageContainer}>
+                            <img
+                                src={image ? image : post.imageUrl}
+                                alt={post.title}
+                            />
+                        </div>
                         <input
                             type="file"
                             id="img"

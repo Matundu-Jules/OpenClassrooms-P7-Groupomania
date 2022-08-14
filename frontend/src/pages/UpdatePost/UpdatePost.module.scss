@@ -48,15 +48,19 @@
 }
 
 .imageContainer {
-    width: 90%;
-    height: auto;
+    width: 100%;
+    min-height: 100px;
+    max-height: 225px;
     border-radius: 20px;
     overflow: hidden;
-    margin: 0 0 10px 0;
+    margin: 0px;
     display: flex;
     align-items: center;
     justify-content: center;
     img {
+        min-height: 100px;
+        max-height: 225px;
+        width: 100%;
         object-fit: cover;
         transition: 1s transform;
         border-radius: 20px;

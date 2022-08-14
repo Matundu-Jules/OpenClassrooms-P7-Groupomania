@@ -87,12 +87,16 @@ function Home() {
                 </main>
             ) : (
                 <div className={styles.homepage}>
-                    <h1>Bienvenue sur Groupomania</h1>
-                    <h2>Notre réseau qui renforcera nos liens</h2>
+                    <h1 className={styles.firstTitleHomepage}>
+                        Bienvenue sur Groupomania
+                    </h1>
+                    <h2 className={styles.secondTitleHomepage}>
+                        Notre réseau qui renforcera nos liens
+                    </h2>
                     {user.errorToken ? (
                         <p className="form-error">{user.errorToken}</p>
                     ) : (
-                        <p>
+                        <p className={styles.pHomepage}>
                             Pour accéder au site, veuillez vous inscrire ou vous
                             connecter.
                         </p>

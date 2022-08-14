@@ -13,7 +13,7 @@
     z-index: 1;
     display: flex;
     flex-direction: column;
-    @include mixin.sm {
+    @include mixin.md {
         display: none;
     }
 

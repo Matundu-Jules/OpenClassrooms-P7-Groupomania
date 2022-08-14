@@ -76,15 +76,15 @@ Adding Bearer before the token.
 
 ## API Requests and Responses :
 ### <a id="signup"></a>Create new account : ###
-```json
-Request Body :
+```
+## Request Body :
 {
   "pseudo": "String",
   "email": "String",
   "password": "String"
 }
 
-Response : 
+## Response : 
 {
   "userCreated": "Boolean",
   "message": "String"
@@ -92,14 +92,14 @@ Response :
 ```
 
 ### <a id="login"></a>Login to your account : ###
-```json
-Request Body :
+```
+## Request Body :
 {
   "email": "String",
   "password": "String"
 }
 
-Response : 
+## Response : 
 {
   "userId": "String",
   "pseudo": "String",
@@ -110,22 +110,22 @@ Response :
 ```
 
 ### <a id="allposts"></a>Get all posts : ###
-```json
-Response : 
+```
+## Response : 
 An array of objects
 [{...}, {...}, {...}]
 ```
 
 ### <a id="userposts"></a>Get all posts from a user : ###
-```json
-Response : 
+```
+## Response : 
 An array of objects
 [{...}, {...}, {...}]
 ```
 
 ### <a id="createpost"></a>Create a post : ###
-```json
-Request Body :
+```
+## Request Body :
 FormData :
 {
   "image": "File",
@@ -137,15 +137,15 @@ FormData :
   }) 
 }
 
-Response : 
+## Response : 
 {
   "message": "String",
 }
 ```
 
 ### <a id="modifypost"></a>Modify a post : ###
-```json
-Request Body :
+```
+## Request Body :
 if have image => FormData :
 {
   "image": "File",
@@ -165,28 +165,28 @@ if not have image => JSON :
   "description": "String",
 }
 
-Response : 
+## Response : 
 {
   "message": "String",
 }
 ```
 
 ### <a id="deletepost"></a>Delete a post : ###
-```json
-Request Body :
+```
+## Request Body :
 {
   "userId": "String",
 }
 
-Response : 
+## Response : 
 {
   "message": "String",
 }
 ```
 
 ### <a id="likepost"></a>Like or Dislike a post : ###
-```json
-Request Body :
+```
+## Request Body :
 Like :
 {
   "userId": "String",
@@ -205,9 +205,8 @@ Cancel like or dislike :
   "like": 0,
 }
 
-Response : 
+## Response : 
 {
   "message": "String",
 }
 ```
-

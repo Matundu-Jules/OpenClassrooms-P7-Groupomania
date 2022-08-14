@@ -41,7 +41,10 @@ function SignUp() {
         password: yup
             .string()
             .required('Le mot de passe est obligatoire.')
-            .min(5, 'Votre mot de passe est trop court, minimum 5 caractères.'),
+            .min(
+                10,
+                'Votre mot de passe est trop court, minimum 10 caractères.'
+            ),
         confirmPassword: yup
             .string()
             .required('Vous devez confirmer votre mot de passe !')

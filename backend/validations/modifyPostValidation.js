@@ -2,10 +2,18 @@ const yup = require('yup')
 
 // Validation pour la modification de post //
 const modifyPostSchema = yup.object({
-    title: yup.string().min(5).max(40).required(),
-    description: yup.string().min(5).max(200).required(),
-    userId: yup.string().required(),
-    pseudo: yup.string().required(),
+    title: yup
+        .string()
+        .min(5, 'Votre titre est trop court. 5 caractères minimum.')
+        .max(40, 'Votre titre est trop long. 40 caractères maximum.')
+        .required('Un titre est requis.'),
+    description: yup
+        .string()
+        .min(5, 'Votre description est trop courte. 5 caractères minimum.')
+        .max(200, 'Votre description est trop longue. 200 caractères maximum.')
+        .required('Une description est requise.'),
+    userId: yup.string().required('Votre userId est requis.'),
+    pseudo: yup.string().required('Votre pseudo est requis.'),
 
     image: yup
         .mixed()

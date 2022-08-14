@@ -145,7 +145,7 @@ exports.deletePost = async (req, res, next) => {
                 console.log('Fichier supprimé !')
             })
 
-            res.status(200).json({ message: 'La post a bien été supprimé !' })
+            res.status(200).json({ message: 'Le post a bien été supprimé !' })
         }
     } catch (err) {
         return next(err)
@@ -162,6 +162,13 @@ exports.addLike = async (req, res, next) => {
         const indexLike = post.usersLiked.indexOf(userId)
         const indexDislike = post.usersDisliked.indexOf(userId)
 
+        if (userId != req.user.userId) {
+            return res.status(401).json({
+                message:
+                    "L'userId envoyé n'est pas le votre. Vous n'êtes pas autorisé à effectuer cette action.",
+            })
+        }
+
         // Si on tente d'envoyer autre chose que -1, 0, ou 1, alors renvoyer une erreur :
         if (req.body.like < -1 || req.body.like > 1 || isNaN(req.body.like)) {
             return res.status(400).json({
@@ -169,7 +176,7 @@ exports.addLike = async (req, res, next) => {
             })
         }
 
-        // Ajout de Like :
+        // Ajout de Like //
         if (req.body.like === 1) {
             // Si l'user a déja liker, retourner une erreur :
             if (indexLike !== -1) {
@@ -194,7 +201,7 @@ exports.addLike = async (req, res, next) => {
                 .json({ message: 'Votre like a été ajouté !' })
         }
 
-        // Ajout de Dislike :
+        // Ajout de Dislike //
         if (req.body.like === -1) {
             // Si l'user a déja disliker, retourner une erreur :
             if (indexDislike !== -1) {
@@ -219,8 +226,17 @@ exports.addLike = async (req, res, next) => {
                 .json({ message: 'Votre dislike a été ajouté !' })
         }
 
-        // Enlever son like / dislike :
+        // Enlever son like / dislike //
         if (req.body.like === 0) {
+            // Retourne une erreur si l'user n'a pas liker / disliker :
+            if (indexLike === -1 && indexDislike === -1) {
+                return res.status(404).json({
+                    message:
+                        "Vous n'avez pas encore liker ou disliker ce post.",
+                })
+            }
+
+            // Si l'user a liker, on supprime le like :
             if (indexLike > -1) {
                 post.likes--
                 const newArray = post.usersLiked.filter((id) => id != userId)
@@ -231,6 +247,7 @@ exports.addLike = async (req, res, next) => {
                     .json({ message: 'Votre like a été supprimé !' })
             }
 
+            // Si l'user a disliker, on supprime le dislike :
             if (indexDislike > -1) {
                 post.dislikes--
                 const newArray = post.usersDisliked.filter((id) => id != userId)

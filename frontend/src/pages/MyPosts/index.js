@@ -66,7 +66,7 @@ function MyPosts() {
     return (
         <>
             {user.isConnected ? (
-                <div className={styles.homepage}>
+                <main className={styles.mypostsContainer}>
                     <h1>Mes posts</h1>
                     {isLoading ? (
                         <Loader />
@@ -84,7 +84,7 @@ function MyPosts() {
                             </div>
                         </>
                     )}
-                </div>
+                </main>
             ) : (
                 <Navigate to="/" replace={true} />
             )}

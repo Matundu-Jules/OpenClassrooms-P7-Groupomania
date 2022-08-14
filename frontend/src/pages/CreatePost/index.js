@@ -140,7 +140,7 @@ function CreatePost() {
     }
 
     return (
-        <section>
+        <main className={styles.createPostContainer}>
             {!user.isConnected ? (
                 <Navigate to="/login" replace={true} />
             ) : (
@@ -224,7 +224,7 @@ function CreatePost() {
                     )}
                 </form>
             )}
-        </section>
+        </main>
     )
 }
 

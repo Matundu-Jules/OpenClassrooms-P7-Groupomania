@@ -176,7 +176,7 @@ function UpdatePost() {
     }
 
     return (
-        <section>
+        <main className={styles.updateContainer}>
             {!user.isConnected ? (
                 <Navigate to="/login" replace={true} />
             ) : (
@@ -249,7 +249,7 @@ function UpdatePost() {
                     )}
                 </form>
             )}
-        </section>
+        </main>
     )
 }
 

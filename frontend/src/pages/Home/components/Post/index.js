@@ -229,7 +229,7 @@ function Post({ post }) {
                 </div>
             )}
             <div className={`${titleContainer}`}>
-                <h2>{post.title}</h2>
+                <h2 className={styles.titlePost}>{post.title}</h2>
             </div>
             <p className={styles.date}>{`${dateString} à ${hourMinFormat}`}</p>
             <div className={`${imageContainer} `}>

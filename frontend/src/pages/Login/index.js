@@ -104,7 +104,7 @@ function Login() {
     }
 
     return (
-        <section>
+        <main className={styles.loginContainer}>
             {user.isConnected ? (
                 <Navigate to="/" replace={true} />
             ) : (
@@ -165,7 +165,7 @@ function Login() {
                     )}
                 </form>
             )}
-        </section>
+        </main>
     )
 }
 

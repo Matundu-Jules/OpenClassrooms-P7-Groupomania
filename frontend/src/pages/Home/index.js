@@ -67,7 +67,9 @@ function Home() {
                         <Loader />
                     ) : (
                         <>
-                            <h1>{`Bienvenue ${user.pseudo}`}</h1>
+                            <h1
+                                className={styles.titleIsLogin}
+                            >{`Bienvenue ${user.pseudo}`}</h1>
                             <div
                                 className={`${
                                     user.role === 'Admin'
@@ -86,6 +88,7 @@ function Home() {
             ) : (
                 <div className={styles.homepage}>
                     <h1>Bienvenue sur Groupomania</h1>
+                    <h2>Notre réseau qui renforcera nos liens</h2>
                     {user.errorToken ? (
                         <p className="form-error">{user.errorToken}</p>
                     ) : (

@@ -55,7 +55,7 @@ function MenuDeleteUpdate({ post }) {
     return (
         <nav className={styles.modifyDeleteLinkContainer}>
             <Link
-                to={`/post/modify/${postId}`}
+                to={`/modifypost/${postId}`}
                 className={styles.modifyLink}
                 state={{ post, previousUrl: currentUrl }}
             >

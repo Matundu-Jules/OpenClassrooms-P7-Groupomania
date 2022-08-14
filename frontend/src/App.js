@@ -9,6 +9,7 @@ import Footer from './components/Footer'
 import CreatePost from './pages/CreatePost'
 import UpdatePost from './pages/UpdatePost'
 import MyPosts from './pages/MyPosts'
+import NotFound from './pages/NotFound'
 
 function App() {
     // Redux :
@@ -26,8 +27,9 @@ function App() {
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/post" element={<CreatePost />}></Route>
-                <Route path="/post/modify/:id" element={<UpdatePost />}></Route>
+                <Route path="/modifypost/:id" element={<UpdatePost />}></Route>
                 <Route path="/myposts" element={<MyPosts />} />
+                <Route path="*" element={<NotFound />}></Route>
             </Routes>
             <Footer />
         </div>

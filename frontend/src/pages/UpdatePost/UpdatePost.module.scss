@@ -1,6 +1,6 @@
 @use '../../assets/styles/mixins' as mixin;
 
-section {
+.updateContainer {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -19,7 +19,7 @@ section {
     padding: 20px 0;
 
     h1 {
-        margin-bottom: 40px;
+        margin-bottom: 30px;
         color: var(--primary);
         font-weight: 700;
     }

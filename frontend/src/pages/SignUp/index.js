@@ -116,17 +116,16 @@ function SignUp() {
     }
 
     return (
-        <main>
-            <h1>Inscription</h1>
-            <p>
-                Pour pouvoir rejoindre notre communauté, inscrivez-vous dès
-                maintenant !
-            </p>
+        <main className={styles.signupContainer}>
             <form
                 className={`card ${styles.formSignup}`}
                 onSubmit={handleSubmit(submit)}
             >
-                <h2>Créer un compte</h2>
+                <h1>Créer un compte</h1>
+                <p>
+                    Pour pouvoir rejoindre notre communauté, inscrivez-vous dès
+                    maintenant !
+                </p>
                 <div className={`${styles.labelInputContainer}`}>
                     <label htmlFor="pseudo">Pseudo</label>
                     <input type="text" id="pseudo" {...register('pseudo')} />

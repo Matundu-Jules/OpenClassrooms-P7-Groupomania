@@ -1,40 +1,25 @@
 // Classes Boutons :
 
 .btn {
-    padding: 5px 25px;
+    padding: 10px 25px;
     border-radius: 20px;
     cursor: pointer;
-    transition: 0.2s opacity;
     font-size: 16px;
-
-    &:hover {
-        opacity: 0.8;
-    }
-}
-
-.btn-primary {
-    background-color: var(--primary);
-    color: white;
-    border: 2px solid var(--primary);
-    transition: 0.5s background-color, color, border;
-
-    &:hover {
-        background-color: white;
-        color: var(--primary);
-        border: 2px solid white;
-    }
+    text-align: center;
+    line-height: 16px;
 }
 
 .btn-reverse-primary {
     border: 2px solid var(--secondary);
     color: var(--secondary);
     background-color: white;
-    transition: 0.5s background-color, color, border;
+    transition: 0.5s all;
 
     &:hover {
         background-color: var(--secondary);
         color: white;
         border: 2px solid var(--secondary);
+        opacity: 0.8;
     }
 }
 
@@ -64,7 +49,7 @@ input {
     width: 100%;
     text-align: center;
     &:focus-visible {
-        outline: 2px solid var(--primary);
+        outline: 2px solid var(--secondary);
     }
 }
 
@@ -80,7 +65,7 @@ textarea {
     max-width: 100%;
     width: 500px;
     &:focus-visible {
-        outline: 2px solid var(--primary);
+        outline: 2px solid var(--secondary);
     }
 }
 

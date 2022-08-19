@@ -53,7 +53,8 @@ export const postsSlice = createSlice({
                 state.allPosts = state.allPosts.filter(
                     (post) => post._id !== action.payload
                 )
-            } else if (state.myPosts) {
+            }
+            if (state.myPosts) {
                 state.myPosts = state.myPosts.filter(
                     (post) => post._id !== action.payload
                 )

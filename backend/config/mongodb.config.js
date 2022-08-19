@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const dotenv = require("dotenv").config();
+const mongoose = require('mongoose')
+const dotenv = require('dotenv').config()
 
 // Connexion à la base de données :
 mongoose
@@ -10,5 +10,5 @@ mongoose
             useUnifiedTopology: true,
         }
     )
-    .then(() => console.log("Connexion database : OK !"))
-    .catch(err => new Error(err));
+    .then(() => console.log('Connexion database : OK !'))
+    .catch((err) => new Error(err))

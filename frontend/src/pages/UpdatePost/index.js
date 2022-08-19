@@ -100,8 +100,43 @@ function UpdatePost() {
         try {
             setIsLoading(true)
 
+            // Requete PUT sans image, JSON :
+            if (!values.img || values.img.length === 0) {
+                // Récupération des données du formulaire :
+                const modifiedPost = {
+                    title: values.title,
+                    description: values.description,
+                    userId: user.id,
+                    pseudo: user.pseudo,
+                }
+
+                // Envoie de la requête PUT :
+                const response = await fetch(`${BASE_URL}/posts/${post._id}`, {
+                    method: 'PUT',
+                    headers: {
+                        Authorization: `Bearer ${user.token}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(modifiedPost),
+                })
+
+                // Récupération des données renvoyer par le serveur :
+                const data = await response.json()
+
+                // Gestion d'erreur :
+                if (!response.ok) {
+                    if (data.tokenExpired) {
+                        dispatch(sessionExpired({ errorToken: data.message }))
+                    } else {
+                        throw new Error('Une erreur est survenue.')
+                    }
+                } else {
+                    // Afficher message de réussite :
+                    setIsSuccess(data.message)
+                }
+            }
             // Requete PUT avec image, FormData :
-            if (values.img) {
+            else if (values.img) {
                 // Récupération des données du formulaire :
                 const modifiedPost = {
                     title: values.title,
@@ -122,41 +157,6 @@ function UpdatePost() {
                         Authorization: `Bearer ${user.token}`,
                     },
                     body: formData,
-                })
-
-                // Récupération des données renvoyer par le serveur :
-                const data = await response.json()
-
-                // Gestion d'erreur :
-                if (!response.ok) {
-                    if (data.tokenExpired) {
-                        dispatch(sessionExpired({ errorToken: data.message }))
-                    } else {
-                        throw new Error('Une erreur est survenue.')
-                    }
-                } else {
-                    // Afficher message de réussite :
-                    setIsSuccess(data.message)
-                }
-            }
-            // Requete PUT sans image, JSON :
-            else if (!values.img) {
-                // Récupération des données du formulaire :
-                const modifiedPost = {
-                    title: values.title,
-                    description: values.description,
-                    userId: user.id,
-                    pseudo: user.pseudo,
-                }
-
-                // Envoie de la requête PUT :
-                const response = await fetch(`${BASE_URL}/posts/${post._id}`, {
-                    method: 'PUT',
-                    headers: {
-                        Authorization: `Bearer ${user.token}`,
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(modifiedPost),
                 })
 
                 // Récupération des données renvoyer par le serveur :
